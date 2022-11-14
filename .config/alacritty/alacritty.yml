@@ -47,8 +47,8 @@ window:
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
   #padding:
-  #  x: 0
-  #  y: 0
+  x: 0
+  y: 0
 
   # Spread additional padding evenly around the terminal content.
   #dynamic_padding: false
@@ -443,7 +443,7 @@ font:
 #   - (Linux/BSD/macOS) `$SHELL` or the user's login shell, if `$SHELL` is unset
 #   - (Windows) powershell
 shell:
-  program: /usr/bin/zsh
+  program: /bin/zsh
 # args:
 #   - --login
 
