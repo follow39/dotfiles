@@ -47,3 +47,5 @@ time_format = "%R" # Hour:Minute Format
 format = "[$time]($style) "
 style = "gray"
 
+[fill]
+symbol = " "
