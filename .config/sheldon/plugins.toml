@@ -13,9 +13,9 @@ inline = 'eval "$(starship init zsh)"'
 [plugins.zsh-syntax-highlighting]
 github = "zsh-users/zsh-syntax-highlighting"
 
-[plugins.zsh-autosuggestions]
-github = "zsh-users/zsh-autosuggestions"
-use = ["{{ name }}.zsh"]
+# [plugins.zsh-autosuggestions]
+# github = "zsh-users/zsh-autosuggestions"
+# use = ["{{ name }}.zsh"]
 
 [plugins.z-lua]
 github = "skywind3000/z.lua"
@@ -31,9 +31,6 @@ github = "jedahan/ripz"
 
 [plugins.zsh-rust]
 github = "cowboyd/zsh-rust"
-
-[plugins.alacritty-shell]
-github = "casonadams/alacritty-shell"
 
 [plugins.zsh-histoy-substring-search]
 github = "zsh-users/zsh-history-substring-search"
