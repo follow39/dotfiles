@@ -1,5 +1,5 @@
 #+TITLE: Emacs configuration
-#+PROPERTY: header-args:emacs-lisp :tangle ~/.emacs.d/init.el :mkdirp yes
+#+PROPERTY: header-args:emacs-lisp :tangle ~/.config/emacs/init.el :mkdirp yes
 
 * Preface
 
@@ -26,7 +26,6 @@ My emacs configuration based on https://github.com/daviwil/dotfiles/blob/master/
 - [[#server-mode][Server mode]]
 - [[#keyboard-bindings][Keyboard bindings]]
   - [[#esc-cancels-all][ESC cancels all]]
-  - [[#rebind-c-u][Rebind C-u]]
   - [[#which-key][Which key]]
   - [[#simplify-bindings-generalel][Simplify bindings (general.el)]]
 - [[#general-configuration][General configuration]]
@@ -142,7 +141,7 @@ My emacs configuration based on https://github.com/daviwil/dotfiles/blob/master/
   (setq native-comp-async-report-warnings-errors nil)
 
   ;; Set the right directory to store the native comp cache
-  ;;(add-to-list 'native-comp-eln-load-path (expand-file-name "eln-cache/" user-emacs-directory))
+  ;; (add-to-list 'native-comp-eln-load-path (expand-file-name "eln-cache/" user-emacs-directory))
 #+end_src
 
 * Package managment
@@ -282,11 +281,6 @@ My emacs configuration based on https://github.com/daviwil/dotfiles/blob/master/
   (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 #+end_src
 
-** Rebind C-u
-#+begin_src emacs-lisp
-  (global-set-key (kbd "C-M-u") 'universal-argument)
-#+end_src
-
 ** Which key
 #+begin_src emacs-lisp
   (setup (:pkg which-key)
@@ -318,7 +312,6 @@ Clean up Emacs ui
   (tool-bar-mode -1)          ; Disable the toolbar
   (tooltip-mode -1)           ; Disable tooltips
   (set-fringe-mode 10)       ; Give some breathing room
-
   (menu-bar-mode -1)            ; Disable the menu bar
 
   ;; Set up the visible bell
@@ -376,7 +369,7 @@ Don't warn when advice is added for functions
 
 ** Theme
 #+begin_src emacs-lisp
-  (setup (:pkg spacegray-theme))
+  ;; (setup (:pkg spacegray-theme))
   (setup (:pkg doom-themes))
   (load-theme 'doom-palenight t)
   (doom-themes-visual-bell-config)
@@ -1441,12 +1434,12 @@ Emacs’ default buffer placement algorithm is pretty disruptive if you like set
 
 *** Rust
 #+begin_src emacs-lisp
-  ;; (setup (:pkg rustic)
-  ;;   (:file-match "\\.rs\\'")
-  ;;   (:option rustic-format-on-save t
-  ;;            rustic-lsp-setup-p t
-  ;;            ;; rustic-lsp-client 'eglot
-  ;;            ))
+  (setup (:pkg rustic)
+    (:file-match "\\.rs\\'")
+    (:option rustic-format-on-save t
+             rustic-lsp-setup-p t
+             ;; rustic-lsp-client 'eglot
+             ))
 #+end_src
 
 *** Emacs lisp
