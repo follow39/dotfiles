@@ -14,7 +14,7 @@
 (setq native-comp-async-report-warnings-errors nil)
 
 ;; Set the right directory to store the native comp cache
-;;(add-to-list 'native-comp-eln-load-path (expand-file-name "eln-cache/" user-emacs-directory))
+;; (add-to-list 'native-comp-eln-load-path (expand-file-name "eln-cache/" user-emacs-directory))
 
 (unless (featurep 'straight)
   ;; Bootstrap straight.el
@@ -116,8 +116,6 @@
 
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
-(global-set-key (kbd "C-M-u") 'universal-argument)
-
 (setup (:pkg which-key)
   ;;(diminish 'which-key-mode)
   (which-key-mode)
@@ -139,7 +137,6 @@
 (tool-bar-mode -1)          ; Disable the toolbar
 (tooltip-mode -1)           ; Disable tooltips
 (set-fringe-mode 10)       ; Give some breathing room
-
 (menu-bar-mode -1)            ; Disable the menu bar
 
 ;; Set up the visible bell
@@ -176,7 +173,7 @@
 
 (setq ad-redefinition-action 'accept)
 
-(setup (:pkg spacegray-theme))
+;; (setup (:pkg spacegray-theme))
 (setup (:pkg doom-themes))
 (load-theme 'doom-palenight t)
 (doom-themes-visual-bell-config)
@@ -974,82 +971,7 @@ _d_: date        ^ ^              ^ ^
 
   (:global "C-c p" projectile-command-map))
 
-(setup (:pkg lsp-mode :straight t)
-  (:hook-into rustic-mode c-mode c++-mode python-mode)
-  (:bind "TAB" completion-at-point)
-  (:option lsp-headerline-breadcrumb-enable nil
-           lsp-modeline-diagnostics-enable t
-           lsp-enable-which-key-integration t
-           lsp-keymap-prefix "C-c l"
-           lsp-idle-delay 0.6
-
-           ;; documentation
-           ;; lsp-signature-auto-activate nil
-           ;; lsp-signature-render-documentation nil
-           ;; lsp-eldoc-enable-hover nil
-           ;; lsp-eldoc-render-all nil
-           ;; eldoc-idle-delay 3
-           ;; lsp-eldoc-hook nil
-
-           ;; rust
-           ;; lsp-rust-analyzer-cargo-watch-command "clippy"
-           ;; lsp-rust-analyzer-server-display-inlay-hints nil
-           ;; lsp-rust-analyzer-join-lines t
-           ;; lsp-rust-analyzer-auto-import-enable nil
-           ;; lsp-rust-analyzer-display-lifetime-elision-hints-enable "skip_trivial"
-           ;; lsp-rust-analyzer-display-chaining-hints t
-           ;; lsp-rust-analyzer-display-lifetime-elision-hints-use-parameter-names nil
-           ;; lsp-rust-analyzer-display-closure-return-type-hints t
-           ;; lsp-rust-analyzer-display-parameter-hints t
-           ;; lsp-rust-analyzer-display-reborrow-hints nil
-           ))
-
-(setup (:pkg lsp-ui :straight t)
-  (:hook-into lsp-mode)
-  (:option lsp-ui-peek-always-show 1
-           lsp-ui-peek-show-directory t
-           lsp-ui-slideline-enable nil
-           lsp-ui-slideline-show-hover nil
-           lsp-ui-doc-enabled nil
-           lsp-ui-doc-delay 3
-           lsp-ui-doc-show-with-cursor nil
-           lsp-ui-doc-position 'at-point
-           ))
-
-(setup (:pkg dap-mode :straight t)
-  ;; Assuming that `dap-debug' will invoke all this
-  (:when-loaded
-    (:option lsp-enable-dap-auto-configure nil)
-    (dap-ui-mode 1)
-    (dap-tooltip-mode 1))
-
-  (require 'dap-cpptools)
-  (require 'dap-lldb)
-  (require 'dap-gdb-lldb)
-  ;; installs .extension/vscode
-  (dap-gdb-lldb-setup)
-  (dap-register-debug-template
-   "Rust::LLDB Run Configuration"
-   (list :type "lldb"
-         :request "launch"
-         :name "LLDB::Run"
-         :gdbpath "rust-lldb"
-         ;; uncomment if lldb-mi is not in PATH
-         ;; :lldbmipath "/usr/local/bin/lldb-mi"
-         )))
-
 (setup (:pkg bazel :host github :repo "bazelbuild/emacs-bazel-mode"))
-
-;; (setup (:pkg ccls)
-;;   (setq ccls-executable "ccls")
-;;   (:hook-into c-mode c++-mode objc-mode cuda-mode))
-
-;; (setup (:pkg rustic)
-;;   (:file-match "\\.rs\\'")
-;;   (:option rustic-format-on-save t
-;;            rustic-lsp-setup-p t
-;;            ;; rustic-lsp-client 'eglot
-;;            ))
 
 (setup emacs-lisp-mode
   (:hook flycheck-mode))
@@ -1071,15 +993,10 @@ _d_: date        ^ ^              ^ ^
   :keymaps '(visual)
   "er" '(eval-region :which-key "eval region"))
 
-;; (setup (:pkg lsp-pyright :host github :repo "emacs-lsp/lsp-pyright")
-;;   (:hook lsp)
-;;   (:hook-into python-mode))
-
 (setup (:pkg yaml-mode)
   (:file-match "\\.ya?ml\\'"))
 
-(setup (:pkg flycheck)
-  (:hook-into lsp-mode))
+(setup (:pkg flycheck))
 
 (setup (:pkg flycheck-vale)
   (:option flycheck-vale-enabled t))
