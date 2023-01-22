@@ -5,121 +5,6 @@
 
 My emacs configuration based on https://github.com/daviwil/dotfiles/blob/master/Emacs.org
 
-* Table of Contents
-:PROPERTIES:
-:TOC:      :include all :ignore this
-:END:
-:CONTENTS:
-- [[#preface][Preface]]
-- [[#startup-performance][Startup performance]]
-- [[#native-compilation][Native compilation]]
-- [[#package-managment][Package managment]]
-- [[#streamlined-configuration-with-setupel][Streamlined Configuration with setup.el]]
-  - [[#pkg][:pkg]]
-  - [[#delay][:delay]]
-  - [[#disabled][:disabled]]
-  - [[#load-after][:load-after]]
-- [[#keep-emacsd-clean][Keep .emacs.d clean]]
-- [[#update-load-path][Update load path]]
-- [[#default-coding-system][Default coding system]]
-- [[#undo-tree][Undo tree]]
-- [[#server-mode][Server mode]]
-- [[#keyboard-bindings][Keyboard bindings]]
-  - [[#esc-cancels-all][ESC cancels all]]
-  - [[#which-key][Which key]]
-  - [[#simplify-bindings-generalel][Simplify bindings (general.el)]]
-- [[#general-configuration][General configuration]]
-  - [[#user-interface][User interface]]
-  - [[#theme][Theme]]
-  - [[#font][Font]]
-    - [[#set-font][Set font]]
-    - [[#emojis][Emojis]]
-  - [[#mode-line][Mode line]]
-    - [[#basic-customization][Basic customization]]
-    - [[#enable-diminish-mode][Enable diminish mode]]
-    - [[#doom-modeline][Doom modeline]]
-  - [[#workspaces][Workspaces]]
-  - [[#dashboard][Dashboard]]
-  - [[#notification][Notification]]
-  - [[#auto-saving-changed-files][Auto-saving changed files]]
-  - [[#auto-reverting-changed-files][Auto-reverting changed files]]
-  - [[#ui-toggles][UI toggles]]
-  - [[#highlight-matching-braces][Highlight matching braces]]
-  - [[#display-world-time][Display world time]]
-  - [[#pinetry][Pinetry]]
-  - [[#tramp][TRAMP]]
-  - [[#emacs-as-external-editor][Emacs as external editor]]
-- [[#editing-configuration][Editing configuration]]
-  - [[#tab-width][Tab width]]
-  - [[#use-spaces-instead-of-tabs-for-indentation][Use spaces instead of tabs for indentation]]
-  - [[#commenting-lines][Commenting lines]]
-  - [[#auto-clean-whitespaces][Auto-clean whitespaces]]
-  - [[#use-parinfer-for-lispy-languages][Use parinfer for lispy languages]]
-  - [[#origamiel-for-folding][Origami.el for folding]]
-- [[#stateful-keymaps-with-hydra][Stateful keymaps with hydra]]
-- [[#completition-system][Completition system]]
-  - [[#preserve-minibuffer-history-with-savehist-mode][Preserve Minibuffer History with savehist-mode]]
-  - [[#completions-with-vertico][Completions with vertico]]
-  - [[#complition-in-regions-with-corfu][Complition in regions with corfu]]
-  - [[#improved-candidate-filtering-with-orderless][Improved candidate filtering with orderless]]
-  - [[#consult-commands][Consult commands]]
-  - [[#switching-directories-with-consult-dir][Switching directories with consult-dir]]
-  - [[#complete-annotations-with-marginalia][Complete annotations with marginalia]]
-  - [[#completition-actions-with-embark][Completition actions with embark]]
-- [[#launcing-apps][Launcing apps]]
-- [[#jumping-with-avy][Jumping with avy]]
-- [[#buffer-management-with-bufler][Buffer management with bufler]]
-- [[#window-management][Window management]]
-  - [[#frame-scalingzooming][Frame scaling/zooming]]
-  - [[#window-selection-with-ace-window][Window selection with ace-window]]
-  - [[#window-history-with-winner-mode][Window history with winner-mode]]
-  - [[#set-margins-for-mods][Set margins for mods]]
-  - [[#controll-buffer-placement][Controll buffer placement]]
-  - [[#taming-popups-with-popperel][Taming popups with popper.el]]
-- [[#file-browsing][File browsing]]
-  - [[#dired][Dired]]
-- [[#org-mode][Org mode]]
-  - [[#org-configuration][Org configuration]]
-  - [[#fonts-and-bullets][Fonts and Bullets]]
-  - [[#block-templates][Block templates]]
-  - [[#protocol][Protocol]]
-  - [[#bindingsn][Bindingsn]]
-  - [[#update-table-of-content-on-save][Update table of content on save]]
-  - [[#presentations][Presentations]]
-  - [[#org-roam][Org roam]]
-  - [[#auto-show-markup-symbols][Auto-show markup symbols]]
-- [[#development][Development]]
-  - [[#git][Git]]
-    - [[#magit][Magit]]
-    - [[#forge][Forge]]
-    - [[#magit-to-does][Magit to-does]]
-    - [[#git-link][Git-link]]
-    - [[#git-gutter][Git-gutter]]
-  - [[#projectile][Projectile]]
-  - [[#languages][Languages]]
-    - [[#lsp][LSP]]
-    - [[#dap][DAP]]
-    - [[#bazel][Bazel]]
-    - [[#cc][C/C++]]
-    - [[#rust][Rust]]
-    - [[#emacs-lisp][Emacs lisp]]
-    - [[#python][Python]]
-    - [[#yaml][YAML]]
-  - [[#productivity][Productivity]]
-    - [[#flycheck][Flycheck]]
-    - [[#smart-parents][Smart parents]]
-    - [[#rainbow-delimiters][Rainbow delimiters]]
-- [[#applications][Applications]]
-  - [[#eshell][Eshell]]
-    - [[#shell-commands][Shell commands]]
-      - [[#visual-commands][Visual commands]]
-      - [[#command-highlighting][Command highlighting]]
-      - [[#history-autocompletion][History autocompletion]]
-      - [[#toggling-eshell][Toggling eshell]]
-    - [[#vterm][Vterm]]
-- [[#runtime-performance][Runtime performance]]
-:END:
-
 * Startup performance
 #+begin_src emacs-lisp
   ;; -*- lexical-binding: t; -*-
@@ -263,18 +148,6 @@ My emacs configuration based on https://github.com/daviwil/dotfiles/blob/master/
   (set-default-coding-systems 'utf-8)
 #+end_src
 
-* Undo tree
-#+begin_src emacs-lisp
-  (setup (:pkg undo-tree)
-    (setq undo-tree-auto-save-history nil)
-    (global-undo-tree-mode 1))
-#+end_src
-
-* Server mode
-#+begin_src emacs-lisp
-  ;;(server-start)
-#+end_src
-
 * Keyboard bindings
 ** ESC cancels all
 #+begin_src emacs-lisp
@@ -286,7 +159,7 @@ My emacs configuration based on https://github.com/daviwil/dotfiles/blob/master/
   (setup (:pkg which-key)
     ;;(diminish 'which-key-mode)
     (which-key-mode)
-    (setq which-key-idle-delay 0.3))
+    (setq which-key-idle-delay 0.7))
 #+end_src
 
 ** Simplify bindings (general.el)
@@ -322,34 +195,34 @@ Improve scrolling
 #+begin_src emacs-lisp
   (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
   (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
-  (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
-  (setq scroll-step 1) ;; keyboard scroll one line at a time
+  ;; (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+  (setq scroll-step 4) ;; keyboard scroll one line at a time
   (setq use-dialog-box nil) ;; Disable dialog boxes since they weren't working in Mac OSX
   (setq scroll-margin 13) ;; set scroll margin value
 #+end_src
 
-Set frame transparency and maximaze window by default
+Maximaze window by default
 #+begin_src emacs-lisp
-  ;; (set-frame-parameter (selected-frame) 'alpha '(99 . 99))
-  ;; (add-to-list 'default-frame-alist '(alpha . (99 . 99)))
   (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
   (add-to-list 'default-frame-alist '(fullscreen . maximized))
 #+end_src
 
 Enable line numbers and customize their format
 #+begin_src emacs-lisp
-  (column-number-mode)
+  ;;  (column-number-mode)
   (toggle-truncate-lines t)
 
   ;; Enable line numbers for some modes
-  (dolist (mode '(text-mode-hook
-                  prog-mode-hook
-                  conf-mode-hook))
-    (add-hook mode (lambda () (display-line-numbers-mode 1))))
+  ;; (dolist (mode '(text-mode-hook
+  ;;                 prog-mode-hook
+  ;;                 conf-mode-hook))
+  ;;   (add-hook mode (lambda () (display-line-numbers-mode 1))))
 
   ;; Override some modes which derive from the above
-  (dolist (mode '(org-mode-hook))
-    (add-hook mode (lambda () (display-line-numbers-mode 0))))
+  ;; (dolist (mode '(org-mode-hook))
+  ;;   (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+  ;;  (display-line-numbers-mode 0)
 #+end_src
 
 Don't warn for large files (shows up when launching videos)
@@ -369,7 +242,6 @@ Don't warn when advice is added for functions
 
 ** Theme
 #+begin_src emacs-lisp
-  ;; (setup (:pkg spacegray-theme))
   (setup (:pkg doom-themes))
   (load-theme 'doom-palenight t)
   (doom-themes-visual-bell-config)
@@ -404,8 +276,9 @@ Different platforms need different default font sizes, and Fira Mono is currentl
 ** Mode line
 *** Basic customization
 #+begin_src emacs-lisp
-  (setq display-time-format "%l:%M %p %b %y"
-        display-time-default-load-average nil)
+  ;; (setq display-time-format "%l:%M %p %b %y"
+        ;; display-time-24h-format t
+        ;; display-time-default-load-average nil)
 #+end_src
 
 *** Enable diminish mode
@@ -424,25 +297,15 @@ Different platforms need different default font sizes, and Fira Mono is currentl
   (setup (:pkg doom-modeline)
     (:hook-into after-init-hook)
     (:option doom-modeline-height 15
-       doom-modeline-bar-width 6
-       doom-modeline-lsp t
-       doom-modeline-github nil
-       doom-modeline-minor-modes t
-       doom-modeline-buffer-file-name-style 'truncate-except-project
-       doom-modeline-major-mode-icon nil)
+             ;; doom-modeline-time t
+             doom-modeline-bar-width 6
+             doom-modeline-lsp t
+             doom-modeline-github nil
+             doom-modeline-minor-modes t
+             doom-modeline-buffer-file-name-style 'truncate-except-project
+             doom-modeline-major-mode-icon nil)
     (custom-set-faces '(mode-line ((t (:height 0.85))))
-          '(mode-line-inactive ((t (:height 0.85))))))
-#+end_src
-
-** Workspaces
-#+begin_src emacs-lisp
-  (setup (:pkg perspective)
-    (:option persp-initial-frame-name "Main")
-    (customize-set-variable 'persp-mode-prefix-key (kbd "C-c M-p"))
-    ;; Running `persp-mode' multiple times resets the perspective list...
-    (unless (equal persp-mode t)
-      (persp-mode))
-    )
+                      '(mode-line-inactive ((t (:height 0.85))))))
 #+end_src
 
 ** Dashboard
@@ -455,28 +318,11 @@ Different platforms need different default font sizes, and Fira Mono is currentl
     ;;(setq dashboard-startup-banner "~/.emacs.d/emacs-dash.png")  ;; use custom image as banner
     (setq dashboard-center-content t) ;; set to 't' for centered content
     (setq dashboard-set-navigator t)
-    (setq dashboard-items '((recents . 7)
-                            (agenda . 5 )
-                            (bookmarks . 5)
-                            (projects . 10)))
+    (setq dashboard-items '((recents . 10)
+                            (agenda . 7)
+                            (bookmarks . 7)
+                            (projects . 7)))
     (dashboard-setup-startup-hook))
-#+end_src
-
-** Notification
-alert is a library for showing notifications from other packages in a variety of ways
-#+begin_src emacs-lisp
-  (setup (:pkg alert)
-    (:option alert-default-style 'notifications))
-#+end_src
-
-** Auto-saving changed files
-#+begin_src emacs-lisp
-  ;; (setup (:pkg super-save)
-  ;;   (:delay)
-  ;;   (:when-loaded
-  ;;     (super-save-mode +1)
-  ;;     (diminish 'super-save-mode)
-  ;;     (setq super-save-auto-save-when-idle t)))
 #+end_src
 
 ** Auto-reverting changed files
@@ -496,13 +342,6 @@ alert is a library for showing notifications from other packages in a variety of
     "tt" '(counsel-load-theme :which-key "choose theme"))
 #+end_src
 
-** Highlight matching braces
-#+begin_src emacs-lisp
-  (setup (:require paren)
-    (set-face-attribute 'show-paren-match-expression nil :background "#363e4a")
-    (show-paren-mode 1))
-#+end_src
-
 ** Display world time
 #+begin_src emacs-lisp
   (setq display-time-world-list
@@ -511,30 +350,6 @@ alert is a library for showing notifications from other packages in a variety of
       ("Europe/Munich" "Munich")
       ("Europe/Moscow" "Moscow")))
   (setq display-time-world-time-format "%a, %d %b %H:%M %p %Z")
-#+end_src
-
-** Pinetry
-Emacs can be prompted for the PIN of GPG private keys, we just need to set epa-pinentry-mode to accomplish that:
-#+begin_src emacs-lisp
-  ;;(setq epa-pinentry-mode 'loopback)
-  ;;(pinentry-start)
-#+end_src
-
-** TRAMP
-#+begin_src emacs-lisp
-  ;; Set default connection mode to SSH
-  (setq tramp-default-method "ssh")
-#+end_src
-
-** Emacs as external editor
-#+begin_src emacs-lisp
-  (defun dw/show-server-edit-buffer (buffer)
-    ;; TODO: Set a transient keymap to close with 'C-c C-c'
-    (split-window-vertically -15)
-    (other-window 1)
-    (set-buffer buffer))
-
-  ;; (setq server-window #'dw/show-server-edit-buffer)
 #+end_src
 
 * Editing configuration
@@ -548,34 +363,10 @@ Emacs can be prompted for the PIN of GPG private keys, we just need to set epa-p
   (setq-default indent-tabs-mode nil)
 #+end_src
 
-** Commenting lines
-#+begin_src emacs-lisp
-  ;; (setup (:pkg evil-nerd-commenter)
-  ;;   (:Global "M-/" evilnc-comment-or-uncomment-lines))
-#+end_src
-
 ** Auto-clean whitespaces
 #+begin_src emacs-lisp
   (setup (:pkg ws-butler)
     (:hook-into text-mode prog-mode))
-#+end_src
-
-** Use parinfer for lispy languages
-#+begin_src emacs-lisp
-  ;; (setup (:pkg parinfer-rust-mode)
-  ;;   (:hook-into clojure-mode
-  ;;               emacs-lisp-mode
-  ;;               common-lisp-mode
-  ;;               scheme-mode
-  ;;               lisp-mode)
-  ;;   ;; (setq parinfer-rust-auto-download t)
-  ;;   )
-#+end_src
-
-** Origami.el for folding
-#+begin_src emacs-lisp
-  (setup (:pkg origami :guix "emacs-origami-el")
-    (:hook-into yaml-mode))
 #+end_src
 
 * Stateful keymaps with hydra
@@ -707,12 +498,6 @@ Emacs can be prompted for the PIN of GPG private keys, we just need to set epa-p
           embark-become-indicator embark-action-indicator))
 #+end_src
 
-* Launcing apps
-#+begin_src emacs-lisp
-;; Binding will be set by desktop config
-;;(setup (:pkg app-launcher))
-#+end_src
-
 * Jumping with avy
 #+begin_src emacs-lisp
   (setup (:pkg avy)
@@ -721,77 +506,6 @@ Emacs can be prompted for the PIN of GPG private keys, we just need to set epa-p
       "jj"  '(avy-goto-char :which-key "jump to char")
       "jw"  '(avy-goto-word-0 :which-key "jump to word")
       "jl"  '(avy-goto-line :which-key "jump to line")))
-#+end_src
-
-* Buffer management with bufler
-#+begin_src emacs-lisp
-  (setup (:pkg bufler :straight t)
-    (:disabled)
-    (:global "C-M-j" bufler-switch-buffer
-             "C-M-k" bufler-workspace-frame-set)
-    (:when-loaded
-      (progn
-        :config
-        (bufler-defgroups
-          (group
-           ;; Subgroup collecting all named workspaces.
-           (auto-workspace))
-          (group
-           ;; Subgroup collecting all `help-mode' and `info-mode' buffers.
-           (group-or "*Help/Info*"
-                     (mode-match "*Help*" (rx bos "help-"))
-                     (mode-match "*Info*" (rx bos "info-"))))
-          (group
-           ;; Subgroup collecting all special buffers (i.e. ones that are not
-           ;; file-backed), except `magit-status-mode' buffers (which are allowed to fall
-           ;; through to other groups, so they end up grouped with their project buffers).
-           (group-and "*Special*"
-                      (lambda (buffer)
-                        (unless (or (funcall (mode-match "Magit" (rx bos "magit-status"))
-                                             buffer)
-                                    (funcall (mode-match "Dired" (rx bos "dired"))
-                                             buffer)
-                         q           (funcall (auto-file) buffer))
-                          "*Special*")))
-           (group
-            ;; Subgroup collecting these "special special" buffers
-            ;; separately for convenience.
-            (name-match "**Special**"
-                        (rx bos "*" (or "Messages" "Warnings" "scratch" "Backtrace") "*")))
-           (group
-            ;; Subgroup collecting all other Magit buffers, grouped by directory.
-            (mode-match "*Magit* (non-status)" (rx bos (or "magit" "forge") "-"))
-            (auto-directory))
-           ;; Subgroup for Helm buffers.
-           (mode-match "*Helm*" (rx bos "helm-"))
-           ;; Remaining special buffers are grouped automatically by mode.
-           (auto-mode))
-          ;; All buffers under "~/.emacs.d" (or wherever it is).
-          (dir user-emacs-directory)
-          (group
-           ;; Subgroup collecting buffers in `org-directory' (or "~/org" if
-           ;; `org-directory' is not yet defined).
-           (dir (if (bound-and-true-p org-directory)
-                    org-directory
-                  "~/org"))
-           (group
-            ;; Subgroup collecting indirect Org buffers, grouping them by file.
-            ;; This is very useful when used with `org-tree-to-indirect-buffer'.
-            (auto-indirect)
-            (auto-file))
-           ;; Group remaining buffers by whether they're file backed, then by mode.
-           (group-not "*special*" (auto-file))
-           (auto-mode))
-          (group
-           ;; Subgroup collecting buffers in a projectile project.
-           (auto-projectile))
-          (group
-           ;; Subgroup collecting buffers in a version-control project,
-           ;; grouping them by directory.
-           (auto-project))
-          ;; Group remaining buffers by directory, then major mode.
-          (auto-directory)
-          (auto-mode)))))
 #+end_src
 
 * Window management
@@ -1395,41 +1109,9 @@ Emacs’ default buffer placement algorithm is pretty disruptive if you like set
              ))
 #+end_src
 
-*** DAP
-#+begin_src emacs-lisp
-  (setup (:pkg dap-mode :straight t)
-    ;; Assuming that `dap-debug' will invoke all this
-    (:when-loaded
-      (:option lsp-enable-dap-auto-configure nil)
-      (dap-ui-mode 1)
-      (dap-tooltip-mode 1))
-
-    (require 'dap-cpptools)
-    (require 'dap-lldb)
-    (require 'dap-gdb-lldb)
-    ;; installs .extension/vscode
-    (dap-gdb-lldb-setup)
-    (dap-register-debug-template
-     "Rust::LLDB Run Configuration"
-     (list :type "lldb"
-           :request "launch"
-           :name "LLDB::Run"
-           :gdbpath "rust-lldb"
-           ;; uncomment if lldb-mi is not in PATH
-           ;; :lldbmipath "/usr/local/bin/lldb-mi"
-           )))
-#+end_src
-
 *** Bazel
 #+begin_src emacs-lisp
   (setup (:pkg bazel :host github :repo "bazelbuild/emacs-bazel-mode"))
-#+end_src
-
-*** C/C++
-#+begin_src emacs-lisp
-  ;; (setup (:pkg ccls)
-  ;;   (setq ccls-executable "ccls")
-  ;;   (:hook-into c-mode c++-mode objc-mode cuda-mode))
 #+end_src
 
 *** Rust
@@ -1440,36 +1122,6 @@ Emacs’ default buffer placement algorithm is pretty disruptive if you like set
              rustic-lsp-setup-p t
              ;; rustic-lsp-client 'eglot
              ))
-#+end_src
-
-*** Emacs lisp
-#+begin_src emacs-lisp
-  (setup emacs-lisp-mode
-    (:hook flycheck-mode))
-
-  (setup (:pkg helpful)
-    (:option counsel-describe-function-function #'helpful-callable
-             counsel-describe-variable-function #'helpful-variable)
-    (:global [remap describe-function] helpful-function
-             [remap describe-symbol] helpful-symbol
-             [remap describe-variable] helpful-variable
-             [remap describe-command] helpful-command
-             [remap describe-key] helpful-key))
-
-  (dw/ctrl-c-keys
-    "e"   '(:ignore t :which-key "eval")
-    "eb"  '(eval-buffer :which-key "eval buffer"))
-
-  (dw/ctrl-c-keys
-    :keymaps '(visual)
-    "er" '(eval-region :which-key "eval region"))
-#+end_src
-
-*** Python
-#+begin_src emacs-lisp
-  ;; (setup (:pkg lsp-pyright :host github :repo "emacs-lsp/lsp-pyright")
-  ;;   (:hook lsp)
-  ;;   (:hook-into python-mode))
 #+end_src
 
 *** YAML
@@ -1670,14 +1322,6 @@ Emacs’ default buffer placement algorithm is pretty disruptive if you like set
     (:option eshell-toggle-size-fraction 3
              eshell-toggle-use-projectile-root t
              eshell-toggle-run-command nil))
-#+end_src
-
-*** Vterm
-#+begin_src emacs-lisp
-  (setup (:pkg vterm)
-    (:when-loaded
-     (progn
-       (setq vterm-max-scrollback 10000))))
 #+end_src
 
 * Runtime performance

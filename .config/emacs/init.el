@@ -14,7 +14,7 @@
 (setq native-comp-async-report-warnings-errors nil)
 
 ;; Set the right directory to store the native comp cache
-;;(add-to-list 'native-comp-eln-load-path (expand-file-name "eln-cache/" user-emacs-directory))
+;; (add-to-list 'native-comp-eln-load-path (expand-file-name "eln-cache/" user-emacs-directory))
 
 (unless (featurep 'straight)
   ;; Bootstrap straight.el
@@ -108,20 +108,12 @@
 
 (set-default-coding-systems 'utf-8)
 
-(setup (:pkg undo-tree)
-  (setq undo-tree-auto-save-history nil)
-  (global-undo-tree-mode 1))
-
-;;(server-start)
-
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-
-(global-set-key (kbd "C-M-u") 'universal-argument)
 
 (setup (:pkg which-key)
   ;;(diminish 'which-key-mode)
   (which-key-mode)
-  (setq which-key-idle-delay 0.3))
+  (setq which-key-idle-delay 0.7))
 
 (setup (:pkg general)
   ;; (general-create-definer dw/leader-key-def
@@ -139,7 +131,6 @@
 (tool-bar-mode -1)          ; Disable the toolbar
 (tooltip-mode -1)           ; Disable tooltips
 (set-fringe-mode 10)       ; Give some breathing room
-
 (menu-bar-mode -1)            ; Disable the menu bar
 
 ;; Set up the visible bell
@@ -147,28 +138,28 @@
 
 (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
 (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
-(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
-(setq scroll-step 1) ;; keyboard scroll one line at a time
+;; (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+(setq scroll-step 4) ;; keyboard scroll one line at a time
 (setq use-dialog-box nil) ;; Disable dialog boxes since they weren't working in Mac OSX
 (setq scroll-margin 13) ;; set scroll margin value
 
-;; (set-frame-parameter (selected-frame) 'alpha '(99 . 99))
-;; (add-to-list 'default-frame-alist '(alpha . (99 . 99)))
 (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
-(column-number-mode)
+;;  (column-number-mode)
 (toggle-truncate-lines t)
 
 ;; Enable line numbers for some modes
-(dolist (mode '(text-mode-hook
-                prog-mode-hook
-                conf-mode-hook))
-  (add-hook mode (lambda () (display-line-numbers-mode 1))))
+;; (dolist (mode '(text-mode-hook
+;;                 prog-mode-hook
+;;                 conf-mode-hook))
+;;   (add-hook mode (lambda () (display-line-numbers-mode 1))))
 
 ;; Override some modes which derive from the above
-(dolist (mode '(org-mode-hook))
-  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+;; (dolist (mode '(org-mode-hook))
+;;   (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+;;  (display-line-numbers-mode 0)
 
 (setq large-file-warning-threshold nil)
 
@@ -176,7 +167,6 @@
 
 (setq ad-redefinition-action 'accept)
 
-(setup (:pkg spacegray-theme))
 (setup (:pkg doom-themes))
 (load-theme 'doom-palenight t)
 (doom-themes-visual-bell-config)
@@ -199,8 +189,9 @@
 (setup (:pkg emojify)
   (:hook erc-mode))
 
-(setq display-time-format "%l:%M %p %b %y"
-      display-time-default-load-average nil)
+;; (setq display-time-format "%l:%M %p %b %y"
+      ;; display-time-24h-format t
+      ;; display-time-default-load-average nil)
 
 (setup (:pkg diminish))
 
@@ -213,22 +204,15 @@
 (setup (:pkg doom-modeline)
   (:hook-into after-init-hook)
   (:option doom-modeline-height 15
-     doom-modeline-bar-width 6
-     doom-modeline-lsp t
-     doom-modeline-github nil
-     doom-modeline-minor-modes t
-     doom-modeline-buffer-file-name-style 'truncate-except-project
-     doom-modeline-major-mode-icon nil)
+           ;; doom-modeline-time t
+           doom-modeline-bar-width 6
+           doom-modeline-lsp t
+           doom-modeline-github nil
+           doom-modeline-minor-modes t
+           doom-modeline-buffer-file-name-style 'truncate-except-project
+           doom-modeline-major-mode-icon nil)
   (custom-set-faces '(mode-line ((t (:height 0.85))))
-        '(mode-line-inactive ((t (:height 0.85))))))
-
-(setup (:pkg perspective)
-  (:option persp-initial-frame-name "Main")
-  (customize-set-variable 'persp-mode-prefix-key (kbd "C-c M-p"))
-  ;; Running `persp-mode' multiple times resets the perspective list...
-  (unless (equal persp-mode t)
-    (persp-mode))
-  )
+                    '(mode-line-inactive ((t (:height 0.85))))))
 
 (setup (:pkg dashboard)
   (setq dashboard-set-heading-icons t)
@@ -238,21 +222,11 @@
   ;;(setq dashboard-startup-banner "~/.emacs.d/emacs-dash.png")  ;; use custom image as banner
   (setq dashboard-center-content t) ;; set to 't' for centered content
   (setq dashboard-set-navigator t)
-  (setq dashboard-items '((recents . 7)
-                          (agenda . 5 )
-                          (bookmarks . 5)
-                          (projects . 10)))
+  (setq dashboard-items '((recents . 10)
+                          (agenda . 7)
+                          (bookmarks . 7)
+                          (projects . 7)))
   (dashboard-setup-startup-hook))
-
-(setup (:pkg alert)
-  (:option alert-default-style 'notifications))
-
-;; (setup (:pkg super-save)
-;;   (:delay)
-;;   (:when-loaded
-;;     (super-save-mode +1)
-;;     (diminish 'super-save-mode)
-;;     (setq super-save-auto-save-when-idle t)))
 
 ;; Revert Dired and other buffers
 (setq global-auto-revert-non-file-buffers t)
@@ -265,10 +239,6 @@
   "tw" 'whitespace-mode
   "tt" '(counsel-load-theme :which-key "choose theme"))
 
-(setup (:require paren)
-  (set-face-attribute 'show-paren-match-expression nil :background "#363e4a")
-  (show-paren-mode 1))
-
 (setq display-time-world-list
   '(("Etc/UTC" "UTC")
     ("Europe/Belgrade" "Belgrade")
@@ -276,41 +246,12 @@
     ("Europe/Moscow" "Moscow")))
 (setq display-time-world-time-format "%a, %d %b %H:%M %p %Z")
 
-;;(setq epa-pinentry-mode 'loopback)
-;;(pinentry-start)
-
-;; Set default connection mode to SSH
-(setq tramp-default-method "ssh")
-
-(defun dw/show-server-edit-buffer (buffer)
-  ;; TODO: Set a transient keymap to close with 'C-c C-c'
-  (split-window-vertically -15)
-  (other-window 1)
-  (set-buffer buffer))
-
-;; (setq server-window #'dw/show-server-edit-buffer)
-
 (setq-default tab-width 2)
 
 (setq-default indent-tabs-mode nil)
 
-;; (setup (:pkg evil-nerd-commenter)
-;;   (:Global "M-/" evilnc-comment-or-uncomment-lines))
-
 (setup (:pkg ws-butler)
   (:hook-into text-mode prog-mode))
-
-;; (setup (:pkg parinfer-rust-mode)
-;;   (:hook-into clojure-mode
-;;               emacs-lisp-mode
-;;               common-lisp-mode
-;;               scheme-mode
-;;               lisp-mode)
-;;   ;; (setq parinfer-rust-auto-download t)
-;;   )
-
-(setup (:pkg origami :guix "emacs-origami-el")
-  (:hook-into yaml-mode))
 
 (setup (:pkg hydra)
   (require 'hydra))
@@ -413,83 +354,12 @@ folder, otherwise delete a word"
           #'which-key--hide-popup-ignore-command)
         embark-become-indicator embark-action-indicator))
 
-;; Binding will be set by desktop config
-;;(setup (:pkg app-launcher))
-
 (setup (:pkg avy)
   (dw/ctrl-c-keys
     "j"   '(:ignore t :which-key "jump")
     "jj"  '(avy-goto-char :which-key "jump to char")
     "jw"  '(avy-goto-word-0 :which-key "jump to word")
     "jl"  '(avy-goto-line :which-key "jump to line")))
-
-(setup (:pkg bufler :straight t)
-  (:disabled)
-  (:global "C-M-j" bufler-switch-buffer
-           "C-M-k" bufler-workspace-frame-set)
-  (:when-loaded
-    (progn
-      :config
-      (bufler-defgroups
-        (group
-         ;; Subgroup collecting all named workspaces.
-         (auto-workspace))
-        (group
-         ;; Subgroup collecting all `help-mode' and `info-mode' buffers.
-         (group-or "*Help/Info*"
-                   (mode-match "*Help*" (rx bos "help-"))
-                   (mode-match "*Info*" (rx bos "info-"))))
-        (group
-         ;; Subgroup collecting all special buffers (i.e. ones that are not
-         ;; file-backed), except `magit-status-mode' buffers (which are allowed to fall
-         ;; through to other groups, so they end up grouped with their project buffers).
-         (group-and "*Special*"
-                    (lambda (buffer)
-                      (unless (or (funcall (mode-match "Magit" (rx bos "magit-status"))
-                                           buffer)
-                                  (funcall (mode-match "Dired" (rx bos "dired"))
-                                           buffer)
-                       q           (funcall (auto-file) buffer))
-                        "*Special*")))
-         (group
-          ;; Subgroup collecting these "special special" buffers
-          ;; separately for convenience.
-          (name-match "**Special**"
-                      (rx bos "*" (or "Messages" "Warnings" "scratch" "Backtrace") "*")))
-         (group
-          ;; Subgroup collecting all other Magit buffers, grouped by directory.
-          (mode-match "*Magit* (non-status)" (rx bos (or "magit" "forge") "-"))
-          (auto-directory))
-         ;; Subgroup for Helm buffers.
-         (mode-match "*Helm*" (rx bos "helm-"))
-         ;; Remaining special buffers are grouped automatically by mode.
-         (auto-mode))
-        ;; All buffers under "~/.emacs.d" (or wherever it is).
-        (dir user-emacs-directory)
-        (group
-         ;; Subgroup collecting buffers in `org-directory' (or "~/org" if
-         ;; `org-directory' is not yet defined).
-         (dir (if (bound-and-true-p org-directory)
-                  org-directory
-                "~/org"))
-         (group
-          ;; Subgroup collecting indirect Org buffers, grouping them by file.
-          ;; This is very useful when used with `org-tree-to-indirect-buffer'.
-          (auto-indirect)
-          (auto-file))
-         ;; Group remaining buffers by whether they're file backed, then by mode.
-         (group-not "*special*" (auto-file))
-         (auto-mode))
-        (group
-         ;; Subgroup collecting buffers in a projectile project.
-         (auto-projectile))
-        (group
-         ;; Subgroup collecting buffers in a version-control project,
-         ;; grouping them by directory.
-         (auto-project))
-        ;; Group remaining buffers by directory, then major mode.
-        (auto-directory)
-        (auto-mode)))))
 
 (setup (:pkg default-text-scale)
   (default-text-scale-mode))
@@ -1016,64 +886,14 @@ _d_: date        ^ ^              ^ ^
            lsp-ui-doc-position 'at-point
            ))
 
-(setup (:pkg dap-mode :straight t)
-  ;; Assuming that `dap-debug' will invoke all this
-  (:when-loaded
-    (:option lsp-enable-dap-auto-configure nil)
-    (dap-ui-mode 1)
-    (dap-tooltip-mode 1))
-
-  (require 'dap-cpptools)
-  (require 'dap-lldb)
-  (require 'dap-gdb-lldb)
-  ;; installs .extension/vscode
-  (dap-gdb-lldb-setup)
-  (dap-register-debug-template
-   "Rust::LLDB Run Configuration"
-   (list :type "lldb"
-         :request "launch"
-         :name "LLDB::Run"
-         :gdbpath "rust-lldb"
-         ;; uncomment if lldb-mi is not in PATH
-         ;; :lldbmipath "/usr/local/bin/lldb-mi"
-         )))
-
 (setup (:pkg bazel :host github :repo "bazelbuild/emacs-bazel-mode"))
 
-;; (setup (:pkg ccls)
-;;   (setq ccls-executable "ccls")
-;;   (:hook-into c-mode c++-mode objc-mode cuda-mode))
-
-;; (setup (:pkg rustic)
-;;   (:file-match "\\.rs\\'")
-;;   (:option rustic-format-on-save t
-;;            rustic-lsp-setup-p t
-;;            ;; rustic-lsp-client 'eglot
-;;            ))
-
-(setup emacs-lisp-mode
-  (:hook flycheck-mode))
-
-(setup (:pkg helpful)
-  (:option counsel-describe-function-function #'helpful-callable
-           counsel-describe-variable-function #'helpful-variable)
-  (:global [remap describe-function] helpful-function
-           [remap describe-symbol] helpful-symbol
-           [remap describe-variable] helpful-variable
-           [remap describe-command] helpful-command
-           [remap describe-key] helpful-key))
-
-(dw/ctrl-c-keys
-  "e"   '(:ignore t :which-key "eval")
-  "eb"  '(eval-buffer :which-key "eval buffer"))
-
-(dw/ctrl-c-keys
-  :keymaps '(visual)
-  "er" '(eval-region :which-key "eval region"))
-
-;; (setup (:pkg lsp-pyright :host github :repo "emacs-lsp/lsp-pyright")
-;;   (:hook lsp)
-;;   (:hook-into python-mode))
+(setup (:pkg rustic)
+  (:file-match "\\.rs\\'")
+  (:option rustic-format-on-save t
+           rustic-lsp-setup-p t
+           ;; rustic-lsp-client 'eglot
+           ))
 
 (setup (:pkg yaml-mode)
   (:file-match "\\.ya?ml\\'"))
@@ -1241,11 +1061,6 @@ _d_: date        ^ ^              ^ ^
   (:option eshell-toggle-size-fraction 3
            eshell-toggle-use-projectile-root t
            eshell-toggle-run-command nil))
-
-(setup (:pkg vterm)
-  (:when-loaded
-   (progn
-     (setq vterm-max-scrollback 10000))))
 
 ;; Make gc pauses faster by decreasing the threshold.
 (setq gc-cons-threshold (* 2 1000 1000))
