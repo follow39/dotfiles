@@ -22,7 +22,6 @@
 
 (use-package straight)
 
-
 (use-package defaults
   :defer t
   :preface
@@ -46,12 +45,10 @@
    window-resize-pixelwise window-system)
   (provide 'defaults))
 
-
 (use-package functions
   :defer t
   :preface
   (provide 'functions))
-
 
 (use-package local-config
   :defer t
@@ -108,8 +105,7 @@
   :config
   (defun dired-home-directory ()
     (interactive)
-    (dired (expand-file-name "~/")))
-  )
+    (dired (expand-file-name "~/"))))
 
 ;; todo
 (use-package files
@@ -209,6 +205,28 @@
   :config
   (ace-window-display-mode))
 
+(use-package eldoc
+  :custom
+  (eldoc-echo-area-use-multiline-p nil))
+
+;; (use-package yascroll
+;;   :straight (:host github :repo "emacsorphanage/yascroll")
+;;   :custom
+;;   (setq yascroll:delay-to-hide nil)
+;;   :config
+;;   (global-yascroll-bar-mode 1))
+
+(use-package vundo
+  :straight (:host github :repo "casouri/vundo")
+  :bind (("C-c u" . vundo)))
+
+(use-package recentf
+  :hook (after-init . recentf-mode)
+  :defines (recentf-exclude)
+  :custom
+  (recentf-max-menu-items 100)
+  (recentf-max-saved-items 100))
+
 
 ;;; Completition
 
@@ -253,12 +271,11 @@
 ;;   :custom-face
 ;;   (corfu-popupinfo ((t :height 1.0))))
 
-;; (use-package cape
-;;   :straight (:host github :repo "minad/cape")
-;;   :config
-;;   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
-;;   (add-to-list 'completion-at-point-functions #'cape-file)
-;;   )
+(use-package cape
+  :straight (:host github :repo "minad/cape")
+  :config
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  (add-to-list 'completion-at-point-functions #'cape-file))
 
 (use-package consult
   :straight (:host github :repo "minad/consult")
@@ -271,10 +288,24 @@
 (use-package eglot
   :bind (("C-c C-f" . eglot-format-buffer))
   :config
+  (setq eglot-autoshutdown t
+        eglot-extend-to-xref t
+        eglot-connect-timeout 10)
+  ;; (eglot-inlay-hints-mode)
   (add-to-list 'eglot-server-programs
-               '(rust-mode . ("rust-analyzer"))
-               '(c++-mode . ("clangd"))))
-
+               '((c-mode c++-mode)
+                 . ("clangd"
+                    "-j=4"
+                    "--log=error"
+                    "--malloc-trim"
+                    "--background-index"
+                    "--clang-tidy"
+                    "--cross-file-rename"
+                    "--completion-style=detailed"
+                    "--pch-storage=memory"
+                    "--header-insertion=never"
+                    "--header-insertion-decorators=0"))
+               '((rust-mode) . ("rust-analyzer"))))
 
 (use-package rust-mode
   :straight (:host github :repo "rust-lang/rust-mode")
@@ -285,17 +316,21 @@
   :straight (:host github :repo "bazelbuild/emacs-bazel-mode")
   :defer t)
 
-;; (use-package treesit
-;;   :config
-;;   (add-to-list 'major-mode-remap-alist '(c-mode . c-ts-mode))
-;;   (add-to-list 'major-mode-remap-alist '(c++-mode . c++-ts-mode))
-;;   (add-to-list 'major-mode-remap-alist '(c-or-c++-mode . c-or-c++-ts-mode))
-;;   )
+(use-package treesit)
 
 (use-package treesit-auto
   :straight (:host github :repo "renzmann/treesit-auto")
   :config
   (global-treesit-auto-mode))
+
+(use-package json-mode
+  :defer t)
+
+(use-package csv-mode
+  :straight t
+  :defer t
+  :custom
+  (csv-align-max-width 80))
 
 ;;; Git
 
@@ -304,10 +339,10 @@
   :config
   (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
-(use-package git-gutter
-  :straight (:host github :repo "emacsorphanage/git-gutter")
+(use-package diff-hl
+  :straight (:host github :repo "dgutov/diff-hl")
   :config
-  (global-git-gutter-mode))
+  (global-diff-hl-mode))
 
 
 ;;; Bindings
@@ -315,3 +350,6 @@
 (use-package bindings
   :bind (("C-x C-b" . switch-to-buffer)))
 
+
+(provide 'init)
+;;; init.el ends here
