@@ -185,11 +185,6 @@
   :config
   (scroll-bar-mode -1))
 
-(use-package tooltip-bar
-  :unless (display-graphic-p)
-  :config
-  (tooltip-bar-mode -1))
-
 (use-package tool-bar
   :unless (display-graphic-p)
   :config
