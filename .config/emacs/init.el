@@ -57,16 +57,16 @@
     "Customization group for local settings."
     :prefix "local-config-"
     :group 'emacs)
-  (defcustom local-config-dark-theme 'modus-vivendi-deuteranopia
-    "Dark theme to use."
-    :tag "Dark theme"
-    :type 'symbol
-    :group 'local-config)
-  (defcustom local-config-light-theme 'modus-operandi-deuteranopia
-    "Light theme to use."
-    :tag "Light theme"
-    :type 'symbol
-    :group 'local-config)
+  ;; (defcustom local-config-dark-theme 'modus-vivendi-deuteranopia
+  ;;   "Dark theme to use."
+  ;;   :tag "Dark theme"
+  ;;   :type 'symbol
+  ;;   :group 'local-config)
+  ;; (defcustom local-config-light-theme 'modus-operandi-deuteranopia
+  ;;   "Light theme to use."
+  ;;   :tag "Light theme"
+  ;;   :type 'symbol
+  ;;   :group 'local-config)
   (provide 'local-config))
 
 
@@ -137,16 +137,23 @@
 
 (use-package modus-themes
   :straight (:host github :repo "protesilaos/modus-themes")
-  :requires (functions local-config)
+  :defer)
+
+(use-package ef-themes
+  :straight (:host github :repo "protesilaos/ef-themes")
+  :defer)
+
+(use-package circadian
+  :straight (:host github :repo "guidoschmidt/circadian.el")
+  :requires (local-config)
   :config
-  (setq current-hour
-        (string-to-number
-         (format-time-string "%H" (current-time))))
-  (if (member current-hour (number-sequence 6 18))
-      (load-theme local-config-light-theme t)
-    (load-theme local-config-dark-theme t))
-  (run-at-time "09:00" (* 60 60 24) (lambda () (load-theme local-config-light-theme t)))
-  (run-at-time "18:00" (* 60 60 24) (lambda () (load-theme local-config-dark-theme t))))
+  ;; (setq circadian-themes '(("7:30" . ef-light)
+                           ;; ("19:30" . ef-night)))
+  (setq calendar-latitude 44.786568)
+  (setq calendar-longitude 20.448921)
+  (setq circadian-themes '((:sunrise . ef-light)
+                           (:sunset  . ef-night)))
+  (circadian-setup))
 
 (use-package font
   :hook (after-init . setup-fonts)
