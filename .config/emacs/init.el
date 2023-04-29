@@ -148,23 +148,22 @@
   (run-at-time "09:00" (* 60 60 24) (lambda () (load-theme local-config-light-theme t)))
   (run-at-time "18:00" (* 60 60 24) (lambda () (load-theme local-config-dark-theme t))))
 
-;; (use-package font
-;;   :hook (after-init . setup-fonts)
-;;   :preface
-;;   (defun setup-fonts ()
-;;     (set-face-attribute 'default nil :font "Iosevka")
-;;     (set-face-attribute 'default nil :font "Fira Code"))
-;; (provide 'font))
+(use-package font
+  :hook (after-init . setup-fonts)
+  :preface
+  (defun setup-fonts ()
+    (add-to-list 'default-frame-alist '(font . "Iosevka-14")))
+  (provide 'font))
 
-(use-package fira-code-mode
-  :straight (:host github :repo "jming422/fira-code-mode")
+(use-package ligature
+  :straight (:host github :repo "mickeynp/ligature.el")
   :config
-  (global-fira-code-mode))
-
-;; (use-package ligature.el
-;;   :straight (:host github :repo "mickeynp/ligature.el")
-;;   :config
-;;   (global-ligature-mode t))
+  ;; Enable all Iosevka ligatures in programming modes
+  (ligature-set-ligatures 'prog-mode '("<---" "<--"  "<<-" "<-" "->" "-->" "--->" "<->" "<-->" "<--->" "<---->" "<!--"
+                                       "<==" "<===" "<=" "=>" "=>>" "==>" "===>" ">=" "<=>" "<==>" "<===>" "<====>" "<!---"
+                                       "<~~" "<~" "~>" "~~>" "::" ":::" "==" "!=" "===" "!=="
+                                       ":=" ":-" ":+" "<*" "<*>" "*>" "<|" "<|>" "|>" "+:" "-:" "=:" "<******>" "++" "+++"))
+  (global-ligature-mode t))
 
 (use-package mood-line
   :straight (:host github :repo "jessiehildebrandt/mood-line")
