@@ -258,9 +258,8 @@
 
 (use-package orderless
   :straight (:host github :repo "oantolin/orderless")
-  :config
-  (completion-styles '(orderless))
-  ;; (completion-styles '(orderless basic))
+  :custom
+  (completion-styles '(orderless basic))
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
 (use-package corfu
