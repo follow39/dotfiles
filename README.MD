@@ -9,6 +9,8 @@
 - Iosevka font
 - zoxide
 - fzf
+- clangd
+- rust-analyzer
 
 # Stow command
 ```
