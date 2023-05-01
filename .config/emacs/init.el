@@ -86,7 +86,7 @@
 
 (use-package autorevert
   :config
-  (global-auto-revert-mode))
+  (global-auto-revert-mode 1))
 
 (use-package startup
   :no-require
@@ -94,20 +94,16 @@
   (user-mail-address "ingang39@gmail.com")
   (user-full-name "Artem Ivanov"))
 
-;; todo
 (use-package dired
   :bind ( :map dired-mode-map
           ("<backspace>" . dired-up-directory)
           ("~" . dired-home-directory))
   :hook (dired-mode . dired-hide-details-mode)
-  ;; :custom
-  ;; (dired-listing-switches "-lAXhv --group-directories-first")
   :config
   (defun dired-home-directory ()
     (interactive)
     (dired (expand-file-name "~/"))))
 
-;; todo
 (use-package files
   :preface
   (defvar backup-dir
@@ -205,7 +201,6 @@
   :config
   (save-place-mode))
 
-
 (use-package hl-line
   :config
   (global-hl-line-mode))
@@ -264,7 +259,8 @@
 (use-package orderless
   :straight (:host github :repo "oantolin/orderless")
   :config
-  (setq completion-styles '(orderless)))
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
 
 (use-package corfu
   :straight (:host github :repo "minad/corfu")
@@ -305,8 +301,8 @@
 ;;; Development
 
 (use-package eglot
-  :bind (("C-c C-f" . eglot-format-buffer))
   :defer t
+  :bind (("C-c C-f" . eglot-format-buffer))
   :config
   (setq eglot-autoshutdown t
         eglot-extend-to-xref t
@@ -352,10 +348,13 @@
   (csv-align-max-width 80))
 
 (use-package lua-mode
-  :straight (:host github :repo "immerrr/lua-mode"))
+  :straight (:host github :repo "immerrr/lua-mode")
+  :defer t)
 
 (use-package zig-mode
-  :straight (:host github :repo "ziglang/zig-mode"))
+  :straight (:host github :repo "ziglang/zig-mode")
+  :defer t)
+
 
 ;;; Git
 
@@ -366,7 +365,10 @@
 
 (use-package diff-hl
   :straight (:host github :repo "dgutov/diff-hl")
+  :requires (magit)
   :config
+  (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
+  (add-hook 'magit-post-refresh-hook 'diff-hl-magit-post-refresh)
   (global-diff-hl-mode))
 
 
