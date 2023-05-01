@@ -351,6 +351,9 @@
   :custom
   (csv-align-max-width 80))
 
+(use-package lua-mode
+  :straight (:host github :repo "immerrr/lua-mode"))
+
 (use-package zig-mode
   :straight (:host github :repo "ziglang/zig-mode"))
 
