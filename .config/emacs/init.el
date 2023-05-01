@@ -259,7 +259,8 @@
 (use-package orderless
   :straight (:host github :repo "oantolin/orderless")
   :config
-  (completion-styles '(orderless basic))
+  (completion-styles '(orderless))
+  ;; (completion-styles '(orderless basic))
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
 (use-package corfu
@@ -359,6 +360,9 @@
 (use-package zig-mode
   :straight (:host github :repo "ziglang/zig-mode")
   :defer t)
+
+(use-package markdown-mode
+  :straight t)
 
 
 ;;; Git
