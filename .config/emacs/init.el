@@ -322,6 +322,11 @@
   (add-to-list 'eglot-server-programs
                '((rust-mode rust-ts-mode) . ("rust-analyzer"))))
 
+(use-package yasnippet
+  :straight (:host github :repo "joaotavora/yasnippet")
+  :config
+  (yas-global-mode 1))
+
 (use-package rust-mode
   :straight (:host github :repo "rust-lang/rust-mode")
   :after eglot)
