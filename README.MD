@@ -6,6 +6,9 @@
 - starship
 - helix
 - wezterm
+- Iosevka font
+- zoxide
+- fzf
 
 # Stow command
 ```
