@@ -11,6 +11,7 @@
 - fzf
 - clangd
 - rust-analyzer
+- ripgrep
 
 # Stow command
 ```
