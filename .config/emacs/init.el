@@ -95,9 +95,6 @@
   (user-full-name "Artem Ivanov"))
 
 (use-package dired
-  :bind ( :map dired-mode-map
-          ("<backspace>" . dired-up-directory)
-          ("~" . dired-home-directory))
   :hook (dired-mode . dired-hide-details-mode)
   :config
   (defun dired-home-directory ()
@@ -215,7 +212,6 @@
 
 (use-package ace-window
   :straight (:host github :repo "abo-abo/ace-window")
-  :bind (("C-c C-w" . ace-window))
   :config
   (ace-window-display-mode))
 
@@ -231,8 +227,7 @@
 ;;   (global-yascroll-bar-mode 1))
 
 (use-package vundo
-  :straight (:host github :repo "casouri/vundo")
-  :bind (("C-c u" . vundo)))
+  :straight (:host github :repo "casouri/vundo"))
 
 (use-package recentf
   :hook (after-init . recentf-mode)
@@ -293,16 +288,13 @@
   (add-to-list 'completion-at-point-functions #'cape-file))
 
 (use-package consult
-  :straight (:host github :repo "minad/consult")
-  :bind (("C-s" . consult-line)
-         ("C-M-l" . consult-imenu)))
+  :straight (:host github :repo "minad/consult"))
 
 
 ;;; Development
 
 (use-package eglot
   :defer t
-  :bind (("C-c C-f" . eglot-format-buffer))
   :config
   (setq eglot-autoshutdown t
         eglot-extend-to-xref t
@@ -320,7 +312,9 @@
                     "--header-insertion-decorators=0"
                     )))
   (add-to-list 'eglot-server-programs
-               '((rust-mode rust-ts-mode) . ("rust-analyzer"))))
+               '((rust-mode rust-ts-mode) . ("rust-analyzer")))
+  (add-to-list 'eglot-server-programs
+               '((markdown-mode) . ("marksman"))))
 
 (use-package yasnippet
   :straight (:host github :repo "joaotavora/yasnippet")
@@ -389,7 +383,20 @@
 ;;; Bindings
 
 (use-package bindings
-  :bind (("C-x C-b" . switch-to-buffer)))
+  :bind (("C-x b" . consult-buffer)
+         ("C-x C-b" . consult-buffer)
+         ("C-c C-f" . eglot-format-buffer)
+         ("C-c C-w" . ace-window)
+         ("C-s" . consult-line)
+         ("C-M-l" . consult-imenu)
+         ("C-c u" . vundo)
+         ("C-c C-n" . yas/next-field)
+         ("C-c C-p" . yas/prev-field)
+         ( :map dired-mode-map
+           ("<backspace>" . dired-up-directory)
+           ("~" . dired-home-directory)))
+  :config
+  (provide 'bindings))
 
 
 (provide 'init)
