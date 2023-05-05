@@ -380,6 +380,12 @@
   (global-diff-hl-mode))
 
 
+;;; Org mode
+
+(use-package org-mode
+  :defer t
+  :config)
+
 ;;; Bindings
 
 (use-package bindings
