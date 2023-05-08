@@ -385,13 +385,14 @@
 (use-package bindings
   :bind (("C-x b" . consult-buffer)
          ("C-x C-b" . consult-buffer)
-         ("C-c C-f" . eglot-format-buffer)
-         ("C-c C-w" . ace-window)
          ("C-s" . consult-line)
          ("C-M-l" . consult-imenu)
+         ("C-c C-w" . ace-window)
          ("C-c u" . vundo)
-         ("C-c C-n" . yas/next-field)
-         ("C-c C-p" . yas/prev-field)
+         (:map prog-mode-map
+               ("C-c C-f" . eglot-format-buffer)
+               ("C-c C-n" . yas/next-field)
+               ("C-c C-p" . yas/prev-field))
          ( :map dired-mode-map
            ("<backspace>" . dired-up-directory)
            ("~" . dired-home-directory)))
