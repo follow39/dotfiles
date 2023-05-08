@@ -380,6 +380,16 @@
   :defer t
   :config)
 
+(use-package org-roam
+  :straight (:host github :repo "org-roam/org-roam"
+                   :files (:defaults "extensions/*"))
+  :defer t
+  :custom
+  (org-roam-directory (file-truename "~/Documents/projects/org-test/"))
+  :config
+  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+  (org-roam-db-autosync-mode))
+
 ;;; Bindings
 
 (use-package bindings
@@ -389,6 +399,11 @@
          ("C-M-l" . consult-imenu)
          ("C-c C-w" . ace-window)
          ("C-c u" . vundo)
+         ("C-c n l" . org-roam-buffer-toggle)
+         ("C-c n f" . org-roam-node-find)
+         ("C-c n i" . org-roam-node-insert)
+         ("C-c n c" . org-roam-capture)
+         ("C-c n j" . org-roam-dailies-capture-today)
          (:map prog-mode-map
                ("C-c C-f" . eglot-format-buffer)
                ("C-c C-n" . yas/next-field)
@@ -402,3 +417,4 @@
 
 (provide 'init)
 ;;; init.el ends here
+
