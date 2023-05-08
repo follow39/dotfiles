@@ -378,7 +378,9 @@
 
 (use-package org-mode
   :defer t
-  :config)
+  :config
+  (setq org-ellipsis " ▾"
+        org-hide-emphasis-markers t))
 
 (use-package org-roam
   :straight (:host github :repo "org-roam/org-roam"
@@ -389,6 +391,10 @@
   :config
   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
   (org-roam-db-autosync-mode))
+
+(use-package org-appear
+  :straight (:host github :repo "awth13/org-appear"))
+
 
 ;;; Bindings
 
