@@ -234,16 +234,18 @@
   :defines (recentf-exclude)
   :custom
   (recentf-max-menu-items 25)
-  (recentf-max-saved-items 25))
+  (recentf-max-saved-items 100)
+  :custom)
 
 
 ;;; Completition
 
 (use-package vertico
   :straight (:host github :repo "minad/vertico")
+  :custom
+  (vertico-cycle t)
+  (vertico-scroll-margin 2)
   :config
-  (setq vertico-cycle t
-        vertico-scroll-margin 2)
   (vertico-mode))
 
 (use-package marginalia
@@ -259,11 +261,12 @@
 
 (use-package corfu
   :straight (:host github :repo "minad/corfu")
+  :custom
+  (corfu-auto t)
+  (corfu-cycle t)
+  (corfu-scroll-margin 2)
+  (corfu-quit-no-match 'separator)
   :config
-  (setq corfu-auto t
-        corfu-cycle t
-        corfu-scroll-margin 2
-        corfu-quit-no-match 'separator)
   (global-corfu-mode))
 
 (use-package corfu-terminal
@@ -295,10 +298,12 @@
 
 (use-package eglot
   :defer t
+  :custom
+  (eglot-autoshutdown t)
+  (eglot-extend-to-xref t)
+  (eglot-connect-timeout 10)
   :config
-  (setq eglot-autoshutdown t
-        eglot-extend-to-xref t
-        eglot-connect-timeout 10)
+  (setq )
   (add-to-list 'eglot-server-programs
                '((c-mode c-ts-mode c++-mode c++-ts-mode)
                  . ("clangd"
