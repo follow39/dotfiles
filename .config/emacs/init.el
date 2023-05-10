@@ -378,9 +378,14 @@
 
 (use-package org-mode
   :defer t
-  :config
-  (setq org-ellipsis " ▾"
-        org-hide-emphasis-markers t))
+  :custom
+  (org-ellipsis " ▾")
+  (org-hide-emphasis-markers t)
+  (org-agenda-start-with-log-mode t)
+  (org-log-done 'time)
+  (org-log-into-drawer t)
+  (org-agenda-files '("~/Documents/projects/org-test/Tasks.org"))
+  :config)
 
 (use-package org-roam
   :straight (:host github :repo "org-roam/org-roam"
