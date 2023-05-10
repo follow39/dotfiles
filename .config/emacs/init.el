@@ -292,7 +292,10 @@
   (add-to-list 'completion-at-point-functions #'cape-file))
 
 (use-package consult
-  :straight (:host github :repo "minad/consult"))
+  :straight (:host github :repo "minad/consult")
+  :custom
+  (xref-show-xrefs-function #'consult-xref)
+  (xref-show-definitions-function #'consult-xref))
 
 
 ;;; Development
