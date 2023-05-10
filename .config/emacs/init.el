@@ -386,7 +386,6 @@
 ;;; Org mode
 
 (use-package org-mode
-  :defer t
   :custom
   (org-ellipsis " ▾")
   (org-hide-emphasis-markers t)
@@ -399,7 +398,6 @@
 (use-package org-roam
   :straight (:host github :repo "org-roam/org-roam"
                    :files (:defaults "extensions/*"))
-  :defer t
   :custom
   (org-roam-directory (file-truename "~/Documents/projects/org-test/"))
   :config
