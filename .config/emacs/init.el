@@ -406,7 +406,7 @@
          ("C-c c b" . consult-bookmark)
          ("C-c c i" . consult-imenu)
          ("C-c c u" . consult-imenu-multi)
-         ("C-c c f" . consult-flymake)
+         ("C-c c d" . consult-flymake)
          ("C-c c f" . consult-find)
          ("C-c c r" . consult-git-grep)
          ("C-c c r" . consult-ripgrep)
@@ -421,6 +421,7 @@
          ("C-c n j" . org-roam-dailies-capture-today)
          (:map prog-mode-map
                ("C-c e e" . eglot)
+               ("C-c e r" . eglot-rename)
                ("C-c e f" . eglot-format-buffer)
                ("C-c y n" . yas/next-field)
                ("C-c y p" . yas/prev-field))
