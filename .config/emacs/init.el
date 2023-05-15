@@ -230,6 +230,7 @@
   :straight (:host github :repo "casouri/vundo"))
 
 (use-package recentf
+  :straight (:type built-in)
   :hook (after-init . recentf-mode)
   :defines (recentf-exclude)
   :custom
@@ -301,6 +302,7 @@
 ;;; Development
 
 (use-package eglot
+  :straight (:type built-in)
   :defer t
   :custom
   (eglot-autoshutdown t)
@@ -385,7 +387,8 @@
 
 ;;; Org mode
 
-(use-package org-mode
+(use-package org
+  :straight (:type built-in)
   :custom
   (org-ellipsis " ▾")
   (org-hide-emphasis-markers t)
@@ -408,7 +411,7 @@
   :straight (:host github :repo "awth13/org-appear"))
 
 
-;;; Bindings
+;;; Key bindings
 
 (use-package bindings
   :bind (("C-x b" . consult-buffer)
