@@ -395,14 +395,39 @@
   (org-agenda-start-with-log-mode t)
   (org-log-done 'time)
   (org-log-into-drawer t)
-  (org-agenda-files '("~/Documents/projects/org-test/Tasks.org"))
+  (org-agenda-files '("~/Documents/myorg/todos.org"))
+  ;; Capture templates
+  (org-capture-templates
+   '(
+     ("g" "General To-Do"
+      entry (file+headline "~/Documents/myorg/todos.org" "General Tasks")
+      "* TODO [#B] %?\n:Created: %T\n "
+      :empty-lines 0)
+     ))
+  ;; TODO states
+  (org-todo-keywords
+   '(
+     (sequence "TODO(t)" "PLANNING(p)" "IN-PROGRESS(i@/!)" "VERIFYING(v!)" "BLOCKED(b@)"  "|" "DONE(d!)" "OBE(o@!)" "WONT-DO(w@/!)" )
+     ))
+  ;; TODO colors
+  (org-todo-keyword-faces
+   '(
+     ("TODO" . (:foreground "GoldenRod" :weight bold))
+     ("PLANNING" . (:foreground "DeepPink" :weight bold))
+     ("IN-PROGRESS" . (:foreground "Cyan" :weight bold))
+     ("VERIFYING" . (:foreground "DarkOrange" :weight bold))
+     ("BLOCKED" . (:foreground "Red" :weight bold))
+     ("DONE" . (:foreground "LimeGreen" :weight bold))
+     ("OBE" . (:foreground "LimeGreen" :weight bold))
+     ("WONT-DO" . (:foreground "LimeGreen" :weight bold))
+     ))
   :config)
 
 (use-package org-roam
   :straight (:host github :repo "org-roam/org-roam"
                    :files (:defaults "extensions/*"))
   :custom
-  (org-roam-directory (file-truename "~/Documents/projects/org-test/"))
+  (org-roam-directory (file-truename "~/Documents/myorg/"))
   :config
   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
   (org-roam-db-autosync-mode))
