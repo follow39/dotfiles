@@ -290,6 +290,10 @@
   (xref-show-xrefs-function #'consult-xref)
   (xref-show-definitions-function #'consult-xref))
 
+;; TODO add key bindings
+;; (use-package consult-org-roam
+;;   :straight (:host github :repo "jgru/consult-org-roam"))
+
 
 ;;; Development
 
@@ -301,7 +305,6 @@
   (eglot-extend-to-xref t)
   (eglot-connect-timeout 10)
   :config
-  (setq )
   (add-to-list 'eglot-server-programs
                '((c-mode c-ts-mode c++-mode c++-ts-mode)
                  . ("clangd"
@@ -387,42 +390,40 @@
   (org-agenda-start-with-log-mode t)
   (org-log-done 'time)
   (org-log-into-drawer t)
-  (org-agenda-files '("~/Documents/myorg/todos.org"))
+  (org-agenda-files '("~/Documents/myorg/tasks.org"))
   ;; Capture templates
   (org-capture-templates
-   '(
-     ("g" "General To-Do"
-      entry (file+headline "~/Documents/myorg/todos.org" "General Tasks")
-      "* TODO [#B] %?\n:Created: %T\n "
-      :empty-lines 0)
-     ))
+   '(("e" "Inbox entry"
+      entry (file "~/Documents/myorg/inbox.org")
+      "* %<%H:%M %d/%b/%Y>: %?"
+      :empty-lines 1)
+     ("t" "Common task"
+      entry (file+headline "~/Documents/myorg/tasks.org" "Tasks")
+      "* TODO [#B] %?\n"
+      :empty-lines 1)))
   ;; TODO states
   (org-todo-keywords
    '(
-     (sequence "TODO(t)" "PLANNING(p)" "IN-PROGRESS(i@/!)" "VERIFYING(v!)" "BLOCKED(b@)"  "|" "DONE(d!)" "OBE(o@!)" "WONT-DO(w@/!)" )
+     (sequence "TODO(t!)" "IN-PROGRESS(i@/!)" "IN-REVIEW(r!)" "BLOCKED(b@)"  "|" "DONE(d!)" "CANCELLED(c@!)")
      ))
   ;; TODO colors
   (org-todo-keyword-faces
-   '(
-     ("TODO" . (:foreground "GoldenRod" :weight bold))
-     ("PLANNING" . (:foreground "DeepPink" :weight bold))
+   '(("TODO" . (:foreground "GoldenRod" :weight bold))
      ("IN-PROGRESS" . (:foreground "Cyan" :weight bold))
-     ("VERIFYING" . (:foreground "DarkOrange" :weight bold))
+     ("IN-REVIEW" . (:foreground "DarkOrange" :weight bold))
      ("BLOCKED" . (:foreground "Red" :weight bold))
      ("DONE" . (:foreground "LimeGreen" :weight bold))
-     ("OBE" . (:foreground "LimeGreen" :weight bold))
-     ("WONT-DO" . (:foreground "LimeGreen" :weight bold))
-     ))
+     ("CANCELLED" . (:foreground "LimeGreen" :weight bold))))
   :config)
 
-(use-package org-roam
-  :straight (:host github :repo "org-roam/org-roam"
-                   :files (:defaults "extensions/*"))
-  :custom
-  (org-roam-directory (file-truename "~/Documents/myorg/"))
-  :config
-  (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
-  (org-roam-db-autosync-mode))
+;; (use-package org-roam
+;;   :straight (:host github :repo "org-roam/org-roam"
+;;                    :files (:defaults "extensions/*"))
+;;   :custom
+;;   (org-roam-directory (file-truename "~/Documents/myorg/"))
+;;   :config
+;;   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+;;   (org-roam-db-autosync-mode))
 
 (use-package org-appear
   :straight (:host github :repo "awth13/org-appear"))
@@ -494,13 +495,17 @@
          ;; vundo
          (:map global-map
                ("C-c u" . vundo))
-         ;; org-roam
+         ;; org
          (:map global-map
-               ("C-c n l" . org-roam-buffer-toggle)
-               ("C-c n f" . org-roam-node-find)
-               ("C-c n i" . org-roam-node-insert)
-               ("C-c n c" . org-roam-capture)
-               ("C-c n j" . org-roam-dailies-capture-today))
+               ("C-c o a" . org-agenda)
+               ("C-c o c" . org-capture))
+         ;; org-roam
+         ;; (:map global-map
+         ;;       ("C-c n l" . org-roam-buffer-toggle)
+         ;;       ("C-c n f" . org-roam-node-find)
+         ;;       ("C-c n i" . org-roam-node-insert)
+         ;;       ("C-c n c" . org-roam-capture)
+         ;;       ("C-c n j" . org-roam-dailies-capture-today))
          ;; eglot
          (:map prog-mode-map
                ("C-c e e" . eglot)
