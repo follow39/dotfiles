@@ -390,15 +390,15 @@
   (org-agenda-start-with-log-mode t)
   (org-log-done 'time)
   (org-log-into-drawer t)
-  (org-agenda-files '("~/Documents/myorg/tasks.org"))
+  (org-agenda-files '("~/myorg/tasks.org"))
   ;; Capture templates
   (org-capture-templates
    '(("e" "Inbox entry"
-      entry (file "~/Documents/myorg/inbox.org")
+      entry (file "~/myorg/inbox.org")
       "* %<%H:%M %d/%b/%Y>: %?"
       :empty-lines 1)
      ("t" "Common task"
-      entry (file+headline "~/Documents/myorg/tasks.org" "Tasks")
+      entry (file+headline "~/myorg/tasks.org" "Tasks")
       "* TODO [#B] %?\n"
       :empty-lines 1)))
   ;; TODO states
