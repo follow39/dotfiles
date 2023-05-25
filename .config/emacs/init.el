@@ -234,8 +234,8 @@
   :hook (after-init . recentf-mode)
   :defines (recentf-exclude)
   :custom
-  (recentf-max-menu-items 39)
-  (recentf-max-saved-items 39)
+  (recentf-max-menu-items 127)
+  (recentf-max-saved-items 127)
   :custom
   (recentf-mode t))
 
