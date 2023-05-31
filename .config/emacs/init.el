@@ -240,7 +240,12 @@
   (recentf-mode t))
 
 
-;;; Completition
+;;; Completition & Search
+
+(use-package isearch
+  :straight (:type built-in)
+  :custom
+  (isearch-lazy-count t))
 
 (use-package vertico
   :straight (:host github :repo "minad/vertico")
