@@ -341,7 +341,8 @@
   :straight (:host github :repo "bazelbuild/emacs-bazel-mode")
   :defer t)
 
-(use-package treesit)
+(use-package treesit
+  :straight (:type built-in))
 
 (use-package treesit-auto
   :straight (:host github :repo "renzmann/treesit-auto")
