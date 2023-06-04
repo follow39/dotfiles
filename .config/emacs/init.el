@@ -345,6 +345,9 @@
 
 (use-package treesit-auto
   :straight (:host github :repo "renzmann/treesit-auto")
+  :demand t
+  :custom
+  (treesit-auto-install 'prompt)
   :config
   (global-treesit-auto-mode))
 
