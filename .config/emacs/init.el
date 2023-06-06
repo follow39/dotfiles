@@ -57,6 +57,18 @@
     "Customization group for local settings."
     :prefix "local-config-"
     :group 'emacs)
+  (defcustom local-config-org-dir "~/myorg/"
+    "Path to org files"
+    :type 'string
+    :group 'local-config)
+  (defcustom local-config-org-inbox "~/myorg/inbox.org"
+    "Path to org inbox file"
+    :type 'string
+    :group 'local-config)
+  (defcustom local-config-org-tasks "~/myorg/tasks.org"
+    "Path to org tasks files"
+    :type 'string
+    :group 'local-config)
   ;; (defcustom local-config-dark-theme 'modus-vivendi-deuteranopia
   ;;   "Dark theme to use."
   ;;   :tag "Dark theme"
@@ -391,23 +403,33 @@
 
 ;;; Org mode
 
+(use-package calendar
+  :straight (:type built-in)
+  :custom
+  (calendar-week-start-day 1))
+
 (use-package org
   :straight (:type built-in)
+  :hook ((org-mode . org-indent-mode)
+         (org-mode . visual-line-mode))
   :custom
   (org-ellipsis " ▾")
   (org-hide-emphasis-markers t)
+  ;; (org-capture-bookmark nil)
   (org-agenda-start-with-log-mode t)
   (org-log-done 'time)
   (org-log-into-drawer t)
-  (org-agenda-files '("~/myorg/tasks.org"))
+  (org-agenda-skip-deadline-if-done t)
+  (org-archive-location "archive/%s")
+  (org-agenda-files local-config-org-tasks)
   ;; Capture templates
   (org-capture-templates
    '(("e" "Inbox entry"
-      entry (file "~/myorg/inbox.org")
+      entry (file local-config-org-inbox)
       "* %<%H:%M %d/%b/%Y>: %?"
       :empty-lines 1)
      ("t" "Common task"
-      entry (file+headline "~/myorg/tasks.org" "Tasks")
+      entry (file+headline local-config-org-tasks "Tasks")
       "* TODO [#B] %?\n"
       :empty-lines 1)))
   ;; TODO states
