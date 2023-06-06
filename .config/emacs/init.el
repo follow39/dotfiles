@@ -251,6 +251,18 @@
   :custom
   (recentf-mode t))
 
+;; (use-package reverse-im
+;;   :ensure t
+;;   :demand t
+;;   :bind
+;;   ("M-T" . reverse-im-translate-word)
+;;   :custom
+;;   (reverse-im-char-fold t)
+;;   ;(reverse-im-read-char-advice-function #'reverse-im-read-char-include)
+;;   (reverse-im-input-methods '("russian-computer"))
+;;   :config
+;;   (reverse-im-mode t))
+
 
 ;;; Completition & Search
 
