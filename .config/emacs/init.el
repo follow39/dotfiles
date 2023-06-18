@@ -433,7 +433,7 @@
   (org-log-into-drawer t)
   (org-agenda-skip-deadline-if-done t)
   (org-archive-location "archive/%s")
-  (org-agenda-files local-config-org-tasks)
+  (org-agenda-files (list local-config-org-tasks))
   ;; Capture templates
   (org-capture-templates
    '(("e" "Inbox entry"
