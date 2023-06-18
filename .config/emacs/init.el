@@ -394,7 +394,8 @@
   :defer t)
 
 (use-package markdown-mode
-  :straight t)
+  :straight t
+  :hook (markdown-mode . visual-line-mode))
 
 
 ;;; Git
