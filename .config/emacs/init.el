@@ -356,6 +356,9 @@
   :config
   (yas-global-mode 1))
 
+(use-package yasnippet-snippets
+  :straight (:host github :repo "AndreaCrotti/yasnippet-snippets"))
+
 (use-package rust-mode
   :straight (:host github :repo "rust-lang/rust-mode")
   :after eglot)
