@@ -151,13 +151,14 @@
 (use-package circadian
   :straight (:host github :repo "guidoschmidt/circadian.el")
   :requires (local-config)
+  :custom
+  ;; (circadian-themes '(("7:30" . ef-light)
+  ;;                     ("19:30" . ef-night)))
+  (calendar-latitude 44.786568)
+  (calendar-longitude 20.448921)
+  (circadian-themes '((:sunrise . ef-light)
+                      (:sunset  . ef-night)))
   :config
-  ;; (setq circadian-themes '(("7:30" . ef-light)
-                           ;; ("19:30" . ef-night)))
-  (setq calendar-latitude 44.786568)
-  (setq calendar-longitude 20.448921)
-  (setq circadian-themes '((:sunrise . ef-light)
-                           (:sunset  . ef-night)))
   (circadian-setup))
 
 (use-package font
@@ -183,8 +184,9 @@
   (mood-line-mode))
 
 (use-package savehist
+  :custom
+  (history-length 50)
   :config
-  (setq history-length 50)
   (savehist-mode))
 
 (use-package menu-bar
