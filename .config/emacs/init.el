@@ -263,6 +263,11 @@
 ;;   :config
 ;;   (reverse-im-mode t))
 
+(use-package jinx
+  :straight (:host github :repo "minad/jinx")
+  :config
+  (global-jinx-mode))
+
 
 ;;; Completition & Search
 
