@@ -404,7 +404,7 @@
   :defer t)
 
 (use-package markdown-mode
-  :straight t
+  :straight (:host github :repo "jrblevin/markdown-mode")
   :hook (markdown-mode . visual-line-mode))
 
 (use-package hl-todo
