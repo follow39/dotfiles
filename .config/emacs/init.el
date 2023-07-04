@@ -407,6 +407,9 @@
   :straight (:host github :repo "jrblevin/markdown-mode")
   :hook (markdown-mode . visual-line-mode))
 
+(use-package protobuf-mode
+  :straight t)
+
 (use-package hl-todo
   :straight (:host github :repo "tarsius/hl-todo")
   :custom
