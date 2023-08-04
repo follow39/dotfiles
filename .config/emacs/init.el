@@ -57,15 +57,15 @@
     "Customization group for local settings."
     :prefix "local-config-"
     :group 'emacs)
-  (defcustom local-config-org-dir "~/myorg/"
+  (defcustom local-config-org-dir "~/Dropbox/org/"
     "Path to org files"
     :type 'string
     :group 'local-config)
-  (defcustom local-config-org-inbox "~/myorg/inbox.org"
+  (defcustom local-config-org-inbox "~/Dropbox/org/inbox.org"
     "Path to org inbox file"
     :type 'string
     :group 'local-config)
-  (defcustom local-config-org-tasks "~/myorg/tasks.org"
+  (defcustom local-config-org-tasks "~/Dropbox/org/tasks.org"
     "Path to org tasks files"
     :type 'string
     :group 'local-config)
