@@ -456,49 +456,88 @@
   :custom
   (org-ellipsis " ▾")
   (org-hide-emphasis-markers t)
-  ;; (org-capture-bookmark nil)
+  (org-capture-bookmark nil)
   (org-agenda-start-with-log-mode t)
   (org-log-done 'time)
   (org-log-into-drawer t)
   (org-agenda-skip-deadline-if-done t)
-  (org-archive-location "archive/%s")
+  ;; (org-archive-location "archive/%s")
   (org-agenda-files (list local-config-org-tasks))
+
   ;; Capture templates
   (org-capture-templates
-   '(("e" "Inbox entry"
-      entry (file local-config-org-inbox)
-      "* %<%H:%M %d/%b/%Y>: %?"
+   '(("t" "Task"
+      entry
+      (file local-config-org-tasks)
+      (file "~/Dropbox/org/templates/task-entry-template.org")
+      ;; "* TODO [#B] %?"
       :empty-lines 1)
-     ("t" "Common task"
-      entry (file+headline local-config-org-tasks "Tasks")
-      "* TODO [#B] %?\n"
-      :empty-lines 1)))
+     ("b" "Add to base"
+      entry
+      (file local-config-org-tasks)
+      (file "~/Dropbox/org/templates/add-to-base-task-entry-template.org")
+      ;; "* TODO [#B] %?"
+      :empty-lines 1)
+     ("m" "Meeting"
+      entry
+      (file+olp+datetree "~/Dropbox/org/meetings.org")
+      (file "~/Dropbox/org/templates/meeting-notes-entry-template.org")
+      ;; "* %U %?"
+      :tree-type week
+      :clock-in t
+      :clock-resume t
+      :empty-lines 1
+      )
+     ))
+  
   ;; TODO states
   (org-todo-keywords
    '(
-     (sequence "TODO(t!)" "IN-PROGRESS(i@/!)" "IN-REVIEW(r!)" "BLOCKED(b@)"  "|" "DONE(d!)" "CANCELLED(c@!)")
+     (sequence "TODO(t!)" "IN-PROGRESS(i@!)" "IN-REVIEW(r!)" "BLOCKED(b@)"  "|" "DONE(d!)" "CANCELLED(c@!)")
      ))
+  
   ;; TODO colors
   (org-todo-keyword-faces
    '(("TODO" . (:foreground "GoldenRod" :weight bold))
-     ("IN-PROGRESS" . (:foreground "Cyan" :weight bold))
+     ("NEW" . (:foreground "GoldenRod" :weight bold))
      ("IN-REVIEW" . (:foreground "DarkOrange" :weight bold))
      ("BLOCKED" . (:foreground "Red" :weight bold))
      ("DONE" . (:foreground "LimeGreen" :weight bold))
      ("CANCELLED" . (:foreground "LimeGreen" :weight bold))))
-  :config)
+  )
 
-;; (use-package org-roam
-;;   :straight (:host github :repo "org-roam/org-roam"
-;;                    :files (:defaults "extensions/*"))
-;;   :custom
-;;   (org-roam-directory (file-truename "~/Documents/myorg/"))
-;;   :config
-;;   (setq org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
-;;   (org-roam-db-autosync-mode))
+(use-package org-archive
+  :straight (:type built-in)
+  :requires (org))
+
+(use-package org-roam
+  :straight (:host github :repo "org-roam/org-roam"
+                   :files (:defaults "extensions/*"))
+  :custom
+  (org-roam-directory (file-truename local-config-org-dir))
+  (org-roam-node-display-template (concat "${title:*} " (propertize "${tags:10}" 'face 'org-tag)))
+  (org-roam-capture-templates
+   '(("d" "default" plain
+      "%?"
+      :if-new (file+head "base/${slug}.org" "#+title: ${title}\n\n")
+      :unnarrowed t)
+     ("c" "new contact" plain
+      "%?"
+      :if-new (file+head "${slug}.org" "#+title: ${title}\n")
+      :unnarrowed t)
+     ))
+  :config
+  (org-roam-db-autosync-mode))
 
 (use-package org-appear
   :straight (:host github :repo "awth13/org-appear"))
+
+(use-package org-roam-ui
+  :straight (:host github :repo "org-roam/org-roam-ui")
+  :custom
+  (org-roam-ui-sync-theme t)
+  (org-roam-ui-follow t)
+  (org-roam-ui-update-on-save t))
 
 
 ;;; Key bindings
@@ -572,12 +611,12 @@
                ("C-c o a" . org-agenda)
                ("C-c o c" . org-capture))
          ;; org-roam
-         ;; (:map global-map
-         ;;       ("C-c n l" . org-roam-buffer-toggle)
-         ;;       ("C-c n f" . org-roam-node-find)
-         ;;       ("C-c n i" . org-roam-node-insert)
-         ;;       ("C-c n c" . org-roam-capture)
-         ;;       ("C-c n j" . org-roam-dailies-capture-today))
+         (:map global-map
+               ("C-c o l" . org-roam-buffer-toggle)
+               ("C-c o f" . org-roam-node-find)
+               ("C-c o i" . org-roam-node-insert)
+               ("C-c o C-c" . org-roam-capture)
+               ("C-c o j" . org-roam-dailies-capture-today))
          ;; eglot
          (:map prog-mode-map
                ("C-c e e" . eglot)
