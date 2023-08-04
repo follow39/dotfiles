@@ -410,6 +410,9 @@
 (use-package protobuf-mode
   :straight t)
 
+(use-package docker
+  :straight (:host github :repo "Silex/docker.el"))
+
 (use-package hl-todo
   :straight (:host github :repo "tarsius/hl-todo")
   :custom
