@@ -326,10 +326,6 @@
   (xref-show-xrefs-function #'consult-xref)
   (xref-show-definitions-function #'consult-xref))
 
-;; TODO add key bindings
-;; (use-package consult-org-roam
-;;   :straight (:host github :repo "jgru/consult-org-roam"))
-
 
 ;;; Development
 
@@ -461,7 +457,7 @@
   (org-log-done 'time)
   (org-log-into-drawer t)
   (org-agenda-skip-deadline-if-done t)
-  ;; (org-archive-location "archive/%s")
+  ;; (org-archive-location "archive/%s") FIXME
   (org-agenda-files (list local-config-org-tasks))
 
   ;; Capture templates
@@ -490,20 +486,10 @@
       )
      ))
   
-  ;; TODO states
   (org-todo-keywords
    '(
      (sequence "TODO(t!)" "IN-PROGRESS(i@!)" "IN-REVIEW(r!)" "BLOCKED(b@)"  "|" "DONE(d!)" "CANCELLED(c@!)")
      ))
-  
-  ;; TODO colors
-  (org-todo-keyword-faces
-   '(("TODO" . (:foreground "GoldenRod" :weight bold))
-     ("NEW" . (:foreground "GoldenRod" :weight bold))
-     ("IN-REVIEW" . (:foreground "DarkOrange" :weight bold))
-     ("BLOCKED" . (:foreground "Red" :weight bold))
-     ("DONE" . (:foreground "LimeGreen" :weight bold))
-     ("CANCELLED" . (:foreground "LimeGreen" :weight bold))))
   )
 
 (use-package org-archive
@@ -529,8 +515,26 @@
   :config
   (org-roam-db-autosync-mode))
 
+(use-package org-modern
+  :straight (:host github :repo "minad/org-modern")
+  :config
+  (global-org-modern-mode))
+
+;; TODO
+;; (use-package org-super-agenda
+;;   :straight (:host github :repo "alphapapa/org-super-agenda")
+;;   :custom
+;;   (org-super-agenda-groups '((:auto-group t)))
+;;   :config
+;;   (org-super-agenda-mode))
+
 (use-package org-appear
-  :straight (:host github :repo "awth13/org-appear"))
+  :straight (:host github :repo "awth13/org-appear")
+  :after org
+  :hook (org-mode . org-appear-mode)
+  :custom
+  (org-appear-autoemphasis t)
+  (org-appear-delay 0.2))
 
 (use-package org-roam-ui
   :straight (:host github :repo "org-roam/org-roam-ui")
