@@ -625,7 +625,8 @@
          (:map prog-mode-map
                ("C-c e e" . eglot)
                ("C-c e r" . eglot-rename)
-               ("C-c e f" . eglot-format-buffer))
+               ("C-c e f" . eglot-format-buffer)
+               ("C-c e a" . eglot-code-actions))
          ;; yasnippet
          (:map prog-mode-map
                ("C-c y n" . yas/next-field)
