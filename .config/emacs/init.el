@@ -386,13 +386,13 @@
 (use-package treesit
   :straight (:type built-in))
 
-(use-package treesit-auto
-  :straight (:host github :repo "renzmann/treesit-auto")
-  :demand t
-  :custom
-  (treesit-auto-install 'prompt)
-  :config
-  (global-treesit-auto-mode))
+;; (use-package treesit-auto
+;;   :straight (:host github :repo "renzmann/treesit-auto")
+;;   :demand t
+;;   :custom
+;;   (treesit-auto-install 'prompt)
+;;   :config
+;;   (global-treesit-auto-mode))
 
 (use-package json-mode
   :defer t)
