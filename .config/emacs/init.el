@@ -414,6 +414,10 @@
 (use-package docker
   :straight (:host github :repo "Silex/docker.el"))
 
+(use-package rmsbolt
+  :straight (:host gitlab :repo "jgkamat/rmsbolt")
+  :defer t)
+
 (use-package hl-todo
   :straight (:host github :repo "tarsius/hl-todo")
   :custom
