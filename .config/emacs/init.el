@@ -148,18 +148,25 @@
   :straight (:host github :repo "protesilaos/ef-themes")
   :defer)
 
-(use-package circadian
-  :straight (:host github :repo "guidoschmidt/circadian.el")
-  :requires (local-config)
+;; (use-package circadian
+;;   :straight (:host github :repo "guidoschmidt/circadian.el")
+;;   :requires (local-config)
+;;   :custom
+;;   ;; (circadian-themes '(("7:30" . ef-light)
+;;   ;;                     ("19:30" . ef-night)))
+;;   (calendar-latitude 44.786568)
+;;   (calendar-longitude 20.448921)
+;;   (circadian-themes '((:sunrise . ef-light)
+;;                       (:sunset  . ef-night)))
+;;   :config
+;;   (circadian-setup))
+
+(use-package auto-dark
+  :straight (:host github :repo "LionyxML/auto-dark-emacs")
   :custom
-  ;; (circadian-themes '(("7:30" . ef-light)
-  ;;                     ("19:30" . ef-night)))
-  (calendar-latitude 44.786568)
-  (calendar-longitude 20.448921)
-  (circadian-themes '((:sunrise . ef-light)
-                      (:sunset  . ef-night)))
-  :config
-  (circadian-setup))
+  (auto-dark-light-theme 'ef-light)
+  (auto-dark-dark-theme 'ef-night)
+  (auto-dark-mode t))
 
 (use-package font
   :hook (after-init . setup-fonts)
