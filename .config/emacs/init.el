@@ -354,6 +354,11 @@
   (add-to-list 'eglot-server-programs
                '((markdown-mode) . ("marksman"))))
 
+(use-package breadcrumb
+  :straight (:host github :repo "joaotavora/breadcrumb")
+  :config
+  (breadcrumb-mode))
+
 (use-package yasnippet
   :straight (:host github :repo "joaotavora/yasnippet")
   :config
