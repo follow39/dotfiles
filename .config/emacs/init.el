@@ -150,10 +150,10 @@
 
 (use-package auto-dark
   :straight (:host github :repo "LionyxML/auto-dark-emacs")
+  :init (add-hook 'after-make-frame-functions 'auto-dark-mode)
   :custom
   (auto-dark-light-theme 'ef-light)
-  (auto-dark-dark-theme 'ef-night)
-  (auto-dark-mode t))
+  (auto-dark-dark-theme 'ef-night))
 
 (use-package font
   :hook (after-init . setup-fonts)
