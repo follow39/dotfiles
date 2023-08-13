@@ -466,19 +466,21 @@
       entry
       (file local-config-org-tasks)
       (file "~/Dropbox/org/templates/task-entry-template.org")
-      ;; "* TODO [#B] %?"
       :empty-lines 1)
      ("b" "Add to base"
       entry
       (file local-config-org-tasks)
       (file "~/Dropbox/org/templates/add-to-base-task-entry-template.org")
-      ;; "* TODO [#B] %?"
+      :empty-lines 1)
+     ("r" "To read"
+      entry
+      (file local-config-org-tasks)
+      (file "~/Dropbox/org/templates/add-to-base-task-entry-template.org")
       :empty-lines 1)
      ("m" "Meeting"
       entry
       (file+olp+datetree "~/Dropbox/org/meetings.org")
       (file "~/Dropbox/org/templates/meeting-notes-entry-template.org")
-      ;; "* %U %?"
       :tree-type week
       :clock-in t
       :clock-resume t
