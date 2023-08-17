@@ -391,7 +391,8 @@
   :hook (markdown-mode . visual-line-mode))
 
 (use-package protobuf-mode
-  :straight t)
+  :straight (:host github :repo "protocolbuffers/protobuf"
+                   :files ("editors/protobuf-mode.el")))
 
 (use-package docker
   :straight (:host github :repo "Silex/docker.el"))
