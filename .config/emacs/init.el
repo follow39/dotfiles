@@ -426,8 +426,7 @@
 
 (use-package highlight-doxygen
   :straight (:host github :repo "Lindydancer/highlight-doxygen")
-  :config
-  (highlight-doxygen-global-mode))
+  :hook (prog-mode . highlight-doxygen-mode))
 
 
 ;;; Git
