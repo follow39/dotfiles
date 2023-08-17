@@ -224,12 +224,10 @@
   :custom
   (eldoc-echo-area-use-multiline-p nil))
 
-;; (use-package yascroll
-;;   :straight (:host github :repo "emacsorphanage/yascroll")
-;;   :custom
-;;   (setq yascroll:delay-to-hide nil)
-;;   :config
-;;   (global-yascroll-bar-mode 1))
+(use-package yascroll
+  :straight (:host github :repo "emacsorphanage/yascroll")
+  :config
+  (global-yascroll-bar-mode 1))
 
 (use-package vundo
   :straight (:host github :repo "casouri/vundo"))
