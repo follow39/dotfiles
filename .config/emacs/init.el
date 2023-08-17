@@ -424,6 +424,11 @@
   :config
   (global-hl-todo-mode))
 
+(use-package highlight-doxygen
+  :straight (:host github :repo "Lindydancer/highlight-doxygen")
+  :config
+  (highlight-doxygen-global-mode))
+
 
 ;;; Git
 
