@@ -23,7 +23,6 @@
 (use-package straight)
 
 (use-package defaults
-  :defer t
   :preface
   (setq-default
    enable-recursive-minibuffers t
@@ -46,12 +45,10 @@
   (provide 'defaults))
 
 (use-package functions
-  :defer t
   :preface
   (provide 'functions))
 
 (use-package local-config
-  :defer t
   :preface
   (defgroup local-config ()
     "Customization group for local settings."
@@ -325,7 +322,6 @@
 
 (use-package eglot
   :straight (:type built-in)
-  :defer t
   :custom
   (eglot-autoshutdown t)
   (eglot-extend-to-xref t)
@@ -362,13 +358,10 @@
   :straight (:host github :repo "AndreaCrotti/yasnippet-snippets"))
 
 (use-package rust-mode
-  :straight (:host github :repo "rust-lang/rust-mode")
-  :after eglot)
+  :straight (:host github :repo "rust-lang/rust-mode"))
 
-
-(use-package bazel-mode
-  :straight (:host github :repo "bazelbuild/emacs-bazel-mode")
-  :defer t)
+(use-package bazel
+  :straight (:host github :repo "bazelbuild/emacs-bazel-mode"))
 
 (use-package treesit
   :straight (:type built-in))
@@ -381,22 +374,19 @@
 ;;   :config
 ;;   (global-treesit-auto-mode))
 
-(use-package json-mode
-  :defer t)
+(use-package json
+  :straight (:type built-in))
 
 (use-package csv-mode
-  :straight t
-  :defer t
+  :straight (:host github :repo "emacs-straight/csv-mode")
   :custom
   (csv-align-max-width 80))
 
 (use-package lua-mode
-  :straight (:host github :repo "immerrr/lua-mode")
-  :defer t)
+  :straight (:host github :repo "immerrr/lua-mode"))
 
 (use-package zig-mode
-  :straight (:host github :repo "ziglang/zig-mode")
-  :defer t)
+  :straight (:host github :repo "ziglang/zig-mode"))
 
 (use-package markdown-mode
   :straight (:host github :repo "jrblevin/markdown-mode")
