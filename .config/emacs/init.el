@@ -417,6 +417,13 @@
   :straight (:host github :repo "Lindydancer/highlight-doxygen")
   :hook (prog-mode . highlight-doxygen-mode))
 
+(use-package leetcode
+  :straight (:host github :repo "kaiwk/leetcode.el")
+  :defer t
+  :custom
+  (leetcode-prefer-language "cpp")
+  (leetcode-save-solutions t))
+
 
 ;;; Git
 
