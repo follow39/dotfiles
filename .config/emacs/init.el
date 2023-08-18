@@ -137,9 +137,9 @@
   :init
   (fset 'yes-or-no-p 'y-or-n-p))
 
-(use-package modus-themes
-  :straight (:host github :repo "protesilaos/modus-themes")
-  :defer)
+;; (use-package modus-themes
+;;   :straight (:host github :repo "protesilaos/modus-themes")
+;;   :defer t)
 
 (use-package ef-themes
   :straight (:host github :repo "protesilaos/ef-themes")
