@@ -378,6 +378,9 @@
 (use-package json
   :straight (:type built-in))
 
+(use-package yaml-mode
+  :straight (:host github :repo "yoshiki/yaml-mode"))
+
 (use-package csv-mode
   :straight (:host github :repo "emacs-straight/csv-mode")
   :custom
