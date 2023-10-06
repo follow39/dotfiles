@@ -372,6 +372,9 @@
 ;;   :config
 ;;   (global-treesit-auto-mode))
 
+(use-package go-mode
+  :straight (:host github :repo "dominikh/go-mode.el"))
+
 (use-package json
   :straight (:type built-in))
 
