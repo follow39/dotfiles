@@ -303,6 +303,10 @@
   (xref-show-xrefs-function #'consult-xref)
   (xref-show-definitions-function #'consult-xref))
 
+(use-package consult-eglot
+  :straight (:host github :repo "mohkale/consult-eglot")
+  :after (consult eglot))
+
 
 ;;; Development
 
@@ -474,6 +478,7 @@
                 ("M-g k" . consult-global-mark)
                 ("M-g i" . consult-imenu)
                 ("M-g I" . consult-imenu-multi)
+                ("M-g s" . consult-eglot-symbols)
                 ;; M-s bindings in `search-map'
                 ("M-s d" . consult-find)
                 ("M-s D" . consult-locate)
