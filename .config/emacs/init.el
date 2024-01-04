@@ -411,10 +411,6 @@
   :config
   (global-hl-todo-mode))
 
-(use-package highlight-doxygen
-  :straight (:host github :repo "Lindydancer/highlight-doxygen")
-  :hook (prog-mode . highlight-doxygen-mode))
-
 (use-package leetcode
   :straight (:host github :repo "kaiwk/leetcode.el")
   :defer t
