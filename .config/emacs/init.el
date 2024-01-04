@@ -326,7 +326,7 @@
                     "--clang-tidy"
                     "--cross-file-rename"
                     "--completion-style=detailed"
-                    "--header-insertion=never"
+                    "--header-insertion=iwyu"
                     "--header-insertion-decorators=0"
                     )))
   (add-to-list 'eglot-server-programs
