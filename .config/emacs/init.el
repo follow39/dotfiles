@@ -125,20 +125,18 @@
   :init
   (fset 'yes-or-no-p 'y-or-n-p))
 
-;; (use-package modus-themes
-;;   :straight (:host github :repo "protesilaos/modus-themes")
-;;   :defer t)
+(use-package modus-themes
+  :straight (:host github :repo "protesilaos/modus-themes"))
 
-(use-package ef-themes
-  :straight (:host github :repo "protesilaos/ef-themes")
-  :defer)
+;; (use-package ef-themes
+;;   :straight (:host github :repo "protesilaos/ef-themes"))
 
 (use-package auto-dark
   :straight (:host github :repo "LionyxML/auto-dark-emacs")
   :hook (server-after-make-frame . auto-dark-mode)
   :custom
-  (auto-dark-light-theme 'ef-light)
-  (auto-dark-dark-theme 'ef-night))
+  (auto-dark-light-theme 'modus-operandi)
+  (auto-dark-dark-theme 'modus-vivendi))
 
 (use-package font
   :hook (after-init . setup-fonts)
