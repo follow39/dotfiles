@@ -392,6 +392,9 @@
   :straight (:host github :repo "protocolbuffers/protobuf"
                    :files ("editors/protobuf-mode.el")))
 
+(use-package dockerfile-mode
+  :straight (:host github :repo "spotify/dockerfile-mode"))
+
 (use-package docker
   :straight (:host github :repo "Silex/docker.el"))
 
