@@ -511,8 +511,8 @@
                ("C-c e a" . eglot-code-actions))
          ;; yasnippet
          (:map prog-mode-map
-               ("C-c y n" . yas/next-field)
-               ("C-c y p" . yas/prev-field))
+               ("C-c y n" . yas-next-field)
+               ("C-c y p" . yas-prev-field))
          ;; dired
          (:map dired-mode-map
                ("<backspace>" . dired-up-directory)
