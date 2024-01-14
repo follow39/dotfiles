@@ -223,17 +223,22 @@
   :custom
   (recentf-mode t))
 
-;; (use-package reverse-im
-;;   :ensure t
-;;   :demand t
-;;   :bind
-;;   ("M-T" . reverse-im-translate-word)
-;;   :custom
-;;   (reverse-im-char-fold t)
-;;   ;(reverse-im-read-char-advice-function #'reverse-im-read-char-include)
-;;   (reverse-im-input-methods '("russian-computer"))
-;;   :config
-;;   (reverse-im-mode t))
+(use-package char-fold
+  :straight (:type built-in)
+  :custom
+  (char-fold-symmetric t)
+  (search-default-mode #'char-fold-to-regexp))
+
+(use-package reverse-im
+  :straight (:host github :repo "a13/reverse-im.el")
+  :demand t
+  :after char-fold
+  :custom
+  (reverse-im-char-fold t)
+  (reverse-im-read-char-advice-function #'reverse-im-read-char-include)
+  (reverse-im-input-methods '("russian-computer"))
+  :config
+  (reverse-im-mode t))
 
 (use-package jinx
   :straight (:host github :repo "minad/jinx")
@@ -511,7 +516,10 @@
          ;; dired
          (:map dired-mode-map
                ("<backspace>" . dired-up-directory)
-               ("~" . dired-home-directory)))
+               ("~" . dired-home-directory))
+         ;; reverse-im
+         (:map global-map
+               ("M-T" . reverse-im-translate-word)))
   :config
   (provide 'bindings))
 
