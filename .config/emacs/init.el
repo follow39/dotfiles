@@ -306,6 +306,40 @@
   :after (consult eglot))
 
 
+;;; Org
+
+(use-package calendar
+  :straight (:type built-in)
+  :custom
+  (calendar-week-start-day 1))
+
+(use-package org
+  :straight (:type built-in)
+  :hook ((org-mode . org-indent-mode)
+         (org-mode . visual-line-mode))
+  :custom
+  (org-ellipsis " ▾")
+  (org-hide-emphasis-markers t)
+  (org-capture-bookmark nil))
+
+(use-package denote
+  :straight (:host github :repo "protesilaos/denote")
+  :custom
+  (denote-directory (expand-file-name "~/Documents/notes/"))
+  (denote-known-keywords '("emacs" "inbox"))
+  (denote-infer-keywords t)
+  (denote-sort-keywords t)
+  (denote-file-type nil) ; Org is the default
+  (denote-prompts '(title keywords))
+  (denote-excluded-directories-regexp nil)
+  (denote-excluded-keywords-regexp nil)
+
+  ;; Pick dates, where relevant, with Org's advanced interface:
+  (denote-date-prompt-use-org-read-date t)
+
+  (denote-org-capture-specifiers "%i\n%?"))
+
+
 ;;; Development
 
 (use-package eglot
@@ -503,6 +537,12 @@
          ;; vundo
          (:map global-map
                ("C-c u" . vundo))
+         ;; org
+         (:map global-map
+               ("C-c o a" . org-agenda))
+         ;; denote
+         (:map global-map
+               ("C-c n n" . denote))
          ;; eglot
          (:map prog-mode-map
                ("C-c e e" . eglot)
