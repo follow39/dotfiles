@@ -245,6 +245,11 @@
   :config
   (global-jinx-mode))
 
+(use-package telega
+  :straight (:host github :repo "zevlg/telega.el")
+  :custom
+  (telega-use-docker t))
+
 
 ;;; Completition & Search
 
