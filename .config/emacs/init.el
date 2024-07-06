@@ -400,6 +400,9 @@
 (use-package cmake-project
   :straight (:host github :repo "alamaison/emacs-cmake-project"))
 
+(use-package typescript-mode
+  :straight (:host github :repo "emacs-typescript/typescript.el"))
+
 (use-package treesit
   :straight (:type built-in))
 
