@@ -345,6 +345,8 @@
   (denote-date-prompt-use-org-read-date t)
   (denote-org-capture-specifiers "%i\n%?"))
 
+(use-package verb
+  :straight (:host github :repo "federicotdn/verb"))
 
 ;;; Development
 
