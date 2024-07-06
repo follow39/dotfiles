@@ -1,17 +1,14 @@
 # Tools list
+- git
 - emacs
 - gnu stow
 - fish
-- git
 - starship
-- helix
-- wezterm
 - Iosevka font
-- zoxide
-- fzf
 - clangd
 - rust-analyzer
 - ripgrep
+- zoxide
 
 # Stow command
 ```
