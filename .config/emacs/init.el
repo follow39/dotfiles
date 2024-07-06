@@ -393,6 +393,13 @@
 (use-package bazel
   :straight (:host github :repo "bazelbuild/emacs-bazel-mode"))
 
+(use-package cmake-mode
+  :straight (:host github :repo "Kitware/CMake"
+                   :files ("Auxiliary/cmake-mode.el")))
+
+(use-package cmake-project
+  :straight (:host github :repo "alamaison/emacs-cmake-project"))
+
 (use-package treesit
   :straight (:type built-in))
 
