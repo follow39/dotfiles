@@ -327,6 +327,9 @@
   (org-hide-emphasis-markers t)
   (org-capture-bookmark nil))
 
+(use-package org-modern
+  :straight (:host github :repo "minad/org-modern"))
+
 (use-package denote
   :straight (:host github :repo "protesilaos/denote")
   :custom
