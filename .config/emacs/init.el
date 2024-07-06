@@ -341,10 +341,8 @@
   (denote-prompts '(title keywords))
   (denote-excluded-directories-regexp nil)
   (denote-excluded-keywords-regexp nil)
-
   ;; Pick dates, where relevant, with Org's advanced interface:
   (denote-date-prompt-use-org-read-date t)
-
   (denote-org-capture-specifiers "%i\n%?"))
 
 
