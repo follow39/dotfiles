@@ -17,7 +17,6 @@
  package-enable-at-startup nil
  load-prefer-newer noninteractive)
 
-
 (setq-default
  default-frame-alist '((fullscreen . maximized)
                        (tool-bar-lines . 0)
@@ -25,7 +24,6 @@
                        (right-divider-width . 1))
  initial-frame-alist default-frame-alist
  frame-inhibit-implied-resize t
- x-gtk-resize-child-frames 'resize-mode
  fringe-indicator-alist (assq-delete-all 'truncation fringe-indicator-alist))
 
 (unless (or (daemonp) noninteractive)
@@ -45,34 +43,14 @@
     (scroll-bar-mode -1)))
 
 (when (featurep 'native-compile)
-  (defvar inhibit-automatic-native-compilation)
-  (setq inhibit-automatic-native-compilation nil)
   (defvar native-comp-async-report-warnings-errors)
   (setq native-comp-async-report-warnings-errors 'silent))
 
-;;; Straight
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(add-to-list 'package-archives '("gnu-devel" . "https://elpa.gnu.org/devel/"))
 
-(defvar straight-process-buffer)
-(setq-default straight-process-buffer " *straight-process*")
-
-(defvar straight-build-dir)
-(setq straight-build-dir (format "build-%s" emacs-version))
-
-(defvar straight-repository-branch)
-(setq straight-repository-branch "develop")
-
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 6))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
+(package-initialize)
 
 (provide 'early-init)
 ;;; early-init.el ends here

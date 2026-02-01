@@ -1,0 +1,7 @@
+[user]
+	name = Artem Ivanov
+	email = ingang39@gmail.com
+	signingkey = AE0AE92253DDEA58B7023F16ED2C0F0D5EB9DD26
+[commit]
+	gpgSign = true
+	alwaysSignOff = true

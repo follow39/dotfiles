@@ -9,9 +9,21 @@
 
 ;;; Code:
 
+(defvar ai/current-distro (or (and (eq system-type 'gnu/linux)
+                                   (file-exists-p "/etc/os-release")
+                                   (with-temp-buffer
+                                     (insert-file-contents "/etc/os-release")
+                                     (search-forward-regexp "^ID=\"?\\(.*\\)\"?$")
+                                     (intern (or (match-string 1)
+                                                 "unknown"))))
+                              'unknown))
+
+(defvar ai/is-guix-system (eql ai/current-distro 'guix))
+
 (use-package use-package
   :no-require
   :custom
+  (use-package-always-ensure (not ai/is-guix-system))
   (use-package-enable-imenu-support t))
 
 (use-package early-init
@@ -19,8 +31,6 @@
   :unless (featurep 'early-init)
   :config
   (load-file (expand-file-name "early-init.el" user-emacs-directory)))
-
-(use-package straight)
 
 (use-package defaults
   :preface
@@ -76,7 +86,7 @@
   (load custom-file :noerror))
 
 (use-package gcmh
-  :straight (:host gitlab :repo "koral/gcmh")
+  :vc (:url "https://gitlab.com/koral/gcmh.git")
   :demand nil
   :config
   (gcmh-mode 1))
@@ -88,7 +98,7 @@
 (use-package startup
   :no-require
   :custom
-  (user-mail-address "ingang39@gmail.com")
+  (user-mail-address "artem.ivanov@mailbox.org")
   (user-full-name "Artem Ivanov"))
 
 (use-package dired
@@ -126,37 +136,33 @@
   (fset 'yes-or-no-p 'y-or-n-p))
 
 (use-package modus-themes
-  :straight (:host github :repo "protesilaos/modus-themes"))
+  :vc (:url "https://github.com/protesilaos/modus-themes.git"))
 
 ;; (use-package ef-themes
 ;;   :straight (:host github :repo "protesilaos/ef-themes"))
-
-(use-package auto-dark
-  :straight (:host github :repo "LionyxML/auto-dark-emacs")
-  :hook (server-after-make-frame . auto-dark-mode)
-  :custom
-  (auto-dark-light-theme 'modus-operandi)
-  (auto-dark-dark-theme 'modus-vivendi))
 
 (use-package font
   :hook (after-init . setup-fonts)
   :preface
   (defun setup-fonts ()
-    (add-to-list 'default-frame-alist '(font . "Iosevka-14")))
+    (add-to-list 'default-frame-alist '(font . "Iosevka-24")))
   (provide 'font))
 
-(use-package ligature
-  :straight (:host github :repo "mickeynp/ligature.el")
-  :config
-  ;; Enable all Iosevka ligatures in programming modes
-  (ligature-set-ligatures 'prog-mode '("<---" "<--"  "<<-" "<-" "->" "-->" "--->" "<->" "<-->" "<--->" "<---->" "<!--"
-                                       "<==" "<===" "<=" "=>" "=>>" "==>" "===>" ">=" "<=>" "<==>" "<===>" "<====>" "<!---"
-                                       "<~~" "<~" "~>" "~~>" "::" ":::" "==" "!=" "===" "!=="
-                                       ":=" ":-" ":+" "<*" "<*>" "*>" "<|" "<|>" "|>" "+:" "-:" "=:" "<******>" "++" "+++"))
-  (global-ligature-mode t))
+;; (use-package ligature
+;;   :vc (:url "https://github.com/mickeynp/ligature.el.git")
+;;   ;; :ensure t
+;;   :config
+;;   ;; Enable all Iosevka ligatures in programming modes
+;;   (ligature-set-ligatures
+;;    'prog-mode
+;;    '("<---" "<--"  "<<-" "<-" "->" "-->" "--->" "<->" "<-->" "<--->" "<---->" "<!--"
+;;      "<==" "<===" "<=" "=>" "=>>" "==>" "===>" ">=" "<=>" "<==>" "<===>" "<====>" "<!---"
+;;      "<~~" "<~" "~>" "~~>" "::" ":::" "==" "!=" "===" "!=="
+;;      ":=" ":-" ":+" "<*" "<*>" "*>" "<|" "<|>" "|>" "+:" "-:" "=:" "<******>" "++" "+++"))
+;;   (global-ligature-mode t))
 
 (use-package mood-line
-  :straight (:host github :repo "jessiehildebrandt/mood-line")
+  :vc (:url "https://github.com/jessiehildebrandt/mood-line.git")
   :config
   (mood-line-mode))
 
@@ -197,12 +203,12 @@
   :hook (prog-mode . show-paren-mode))
 
 (use-package which-key
-  :straight (:host github :repo "justbur/emacs-which-key")
+  :vc (:url "https://github.com/justbur/emacs-which-key.git")
   :config
   (which-key-mode))
 
 (use-package ace-window
-  :straight (:host github :repo "abo-abo/ace-window")
+  :vc (:url "https://github.com/abo-abo/ace-window.git")
   :config
   (ace-window-display-mode))
 
@@ -211,10 +217,9 @@
   (eldoc-echo-area-use-multiline-p nil))
 
 (use-package vundo
-  :straight (:host github :repo "casouri/vundo"))
+  :vc (:url "https://github.com/casouri/vundo.git"))
 
 (use-package recentf
-  :straight (:type built-in)
   :hook (after-init . recentf-mode)
   :defines (recentf-exclude)
   :custom
@@ -224,13 +229,12 @@
   (recentf-mode t))
 
 (use-package char-fold
-  :straight (:type built-in)
   :custom
   (char-fold-symmetric t)
   (search-default-mode #'char-fold-to-regexp))
 
 (use-package reverse-im
-  :straight (:host github :repo "a13/reverse-im.el")
+  :vc (:url "https://github.com/a13/reverse-im.el.git")
   :demand t
   :after char-fold
   :custom
@@ -241,12 +245,12 @@
   (reverse-im-mode t))
 
 (use-package jinx
-  :straight (:host github :repo "minad/jinx")
+  ;; :vc (:url "https://github.com/minad/jinx.git")
   :config
   (global-jinx-mode))
 
 (use-package telega
-  :straight (:host github :repo "zevlg/telega.el")
+  :vc (:url "https://github.com/zevlg/telega.el.git")
   :custom
   (telega-use-docker t))
 
@@ -254,12 +258,11 @@
 ;;; Completition & Search
 
 (use-package isearch
-  :straight (:type built-in)
   :custom
   (isearch-lazy-count t))
 
 (use-package vertico
-  :straight (:host github :repo "minad/vertico")
+  :vc (:url "https://github.com/minad/vertico.git")
   :custom
   (vertico-cycle t)
   (vertico-scroll-margin 2)
@@ -267,18 +270,18 @@
   (vertico-mode))
 
 (use-package marginalia
-  :straight (:host github :repo "minad/marginalia")
+  :vc (:url "https://github.com/minad/marginalia.git")
   :config
   (marginalia-mode))
 
 (use-package orderless
-  :straight (:host github :repo "oantolin/orderless")
+  :vc (:url "https://github.com/oantolin/orderless.git")
   :custom
   (completion-styles '(orderless basic))
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
 (use-package corfu
-  :straight (:host github :repo "minad/corfu")
+  :vc (:url "https://github.com/minad/corfu.git")
   :custom
   (corfu-auto t)
   (corfu-cycle t)
@@ -288,38 +291,36 @@
   (global-corfu-mode))
 
 (use-package corfu-terminal
-  :straight (:host codeberg :repo "akib/emacs-corfu-terminal")
+  :vc (:url "https://github.com/akib/emacs-corfu-terminal.git")
   :unless (display-graphic-p)
   :after corfu
   :config
   (corfu-terminal-mode 1))
 
 (use-package cape
-  :straight (:host github :repo "minad/cape")
+  :vc (:url "https://github.com/minad/cape.git")
   :config
   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
   (add-to-list 'completion-at-point-functions #'cape-file))
 
 (use-package consult
-  :straight (:host github :repo "minad/consult")
+  :vc (:url "https://github.com/minad/consult.git")
   :custom
   (xref-show-xrefs-function #'consult-xref)
   (xref-show-definitions-function #'consult-xref))
 
 (use-package consult-eglot
-  :straight (:host github :repo "mohkale/consult-eglot")
+  :vc (:url "https://github.com/mohkale/consult-eglot.git")
   :after (consult eglot))
 
 
 ;;; Org
 
 (use-package calendar
-  :straight (:type built-in)
   :custom
   (calendar-week-start-day 1))
 
 (use-package org
-  :straight (:type built-in)
   :hook ((org-mode . org-indent-mode)
          (org-mode . visual-line-mode))
   :custom
@@ -328,10 +329,10 @@
   (org-capture-bookmark nil))
 
 (use-package org-modern
-  :straight (:host github :repo "minad/org-modern"))
+  :vc (:url "https://github.com/minad/org-modern.git"))
 
 (use-package denote
-  :straight (:host github :repo "protesilaos/denote")
+  :vc (:url "https://github.com/protesilaos/denote.git")
   :custom
   (denote-directory (expand-file-name "~/Documents/notes/"))
   (denote-known-keywords '("emacs" "inbox"))
@@ -346,12 +347,11 @@
   (denote-org-capture-specifiers "%i\n%?"))
 
 (use-package verb
-  :straight (:host github :repo "federicotdn/verb"))
+  :vc (:url "https://github.com/federicotdn/verb.git"))
 
 ;;; Development
 
 (use-package eglot
-  :straight (:type built-in)
   :custom
   (eglot-autoshutdown t)
   (eglot-extend-to-xref t)
@@ -375,36 +375,31 @@
                '((markdown-mode) . ("marksman"))))
 
 (use-package breadcrumb
-  :straight (:host github :repo "joaotavora/breadcrumb")
   :config
   (breadcrumb-mode))
 
 (use-package yasnippet
-  :straight (:host github :repo "joaotavora/yasnippet")
   :config
   (yas-global-mode 1))
 
-(use-package yasnippet-snippets
-  :straight (:host github :repo "AndreaCrotti/yasnippet-snippets"))
+(use-package yasnippet-snippets)
 
-(use-package rust-mode
-  :straight (:host github :repo "rust-lang/rust-mode"))
+(use-package rust-mode)
 
-(use-package bazel
-  :straight (:host github :repo "bazelbuild/emacs-bazel-mode"))
+(use-package bazel)
 
-(use-package cmake-mode
-  :straight (:host github :repo "Kitware/CMake"
-                   :files ("Auxiliary/cmake-mode.el")))
+(use-package cmake-mode)
 
 (use-package cmake-project
-  :straight (:host github :repo "alamaison/emacs-cmake-project"))
+  :vc (:url "https://github.com/alamaison/emacs-cmake-project.git"))
 
 (use-package typescript-mode
-  :straight (:host github :repo "emacs-typescript/typescript.el"))
+  :vc (:url "https://github.com/emacs-typescript/typescript.el.git"))
 
-(use-package treesit
-  :straight (:type built-in))
+(use-package racket-mode
+  :vc (:url "https://github.com/greghendershott/racket-mode.git"))
+
+(use-package treesit)
 
 ;; (use-package treesit-auto
 ;;   :straight (:host github :repo "renzmann/treesit-auto")
@@ -415,46 +410,44 @@
 ;;   (treesit-auto-add-to-auto-mode-alist 'all)
 ;;   (global-treesit-auto-mode))
 
-(use-package go-mode
-  :straight (:host github :repo "dominikh/go-mode.el"))
+;; (use-package go-mode)
 
-(use-package json
-  :straight (:type built-in))
+(use-package json)
 
 (use-package yaml-mode
-  :straight (:host github :repo "yoshiki/yaml-mode"))
+  :vc (:url "https://github.com/yoshiki/yaml-mode.git"))
 
 (use-package csv-mode
-  :straight (:host github :repo "emacs-straight/csv-mode")
+  :vc (:url "https://github.com/emacs-straight/csv-mode.git")
   :custom
   (csv-align-max-width 80))
 
 (use-package lua-mode
-  :straight (:host github :repo "immerrr/lua-mode"))
+  :vc (:url "https://github.com/immerrr/lua-mode.git"))
 
 (use-package zig-mode
-  :straight (:host github :repo "ziglang/zig-mode"))
+  :vc (:url "https://github.com/ziglang/zig-mode.git"))
 
 (use-package markdown-mode
-  :straight (:host github :repo "jrblevin/markdown-mode")
+  :vc (:url "https://github.com/jrblevin/markdown-mode.git")
   :hook (markdown-mode . visual-line-mode))
 
-(use-package protobuf-mode
-  :straight (:host github :repo "protocolbuffers/protobuf"
-                   :files ("editors/protobuf-mode.el")))
+;; (use-package protobuf-mode
+;;   :straight (:host github :repo "protocolbuffers/protobuf"
+;;                    :files ("editors/protobuf-mode.el")))
 
-(use-package dockerfile-mode
-  :straight (:host github :repo "spotify/dockerfile-mode"))
+;; (use-package dockerfile-mode
+;;   :vc (:url "https://github.com/spotify/dockerfile-mode.git"))
 
-(use-package docker
-  :straight (:host github :repo "Silex/docker.el"))
+;; (use-package docker
+;;   :vc (:url "https://github.com/Silex/docker.el.git"))
 
-(use-package rmsbolt
-  :straight (:host gitlab :repo "jgkamat/rmsbolt")
-  :defer t)
+;; (use-package rmsbolt
+;;   :vc (:url "https://github.com/jgkamat/rmsbolt.git")
+;;   :defer t)
 
 (use-package hl-todo
-  :straight (:host github :repo "tarsius/hl-todo")
+  :vc (:url "https://github.com/tarsius/hl-todo.git")
   :custom
   (hl-todo-keyword-faces
    '(("TODO"   . "#FF0000")
@@ -465,23 +458,23 @@
   :config
   (global-hl-todo-mode))
 
-(use-package leetcode
-  :straight (:host github :repo "kaiwk/leetcode.el")
-  :defer t
-  :custom
-  (leetcode-prefer-language "cpp")
-  (leetcode-save-solutions t))
+;; (use-package leetcode
+;;   :vc (:url "https://github.com/kaiwk/leetcode.el.git")
+;;   :defer t
+;;   :custom
+;;   (leetcode-prefer-language "cpp")
+;;   (leetcode-save-solutions t))
 
 
 ;;; Git
 
 (use-package magit
-  :straight (:host github :repo "magit/magit")
+  ;; :vc (:url "https://github.com/magit/magit.git")
   :config
   (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
 (use-package diff-hl
-  :straight (:host github :repo "dgutov/diff-hl")
+  :vc (:url "https://github.com/dgutov/diff-hl.git")
   :requires (magit)
   :config
   (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
