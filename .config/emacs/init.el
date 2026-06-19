@@ -128,16 +128,6 @@
 (use-package modus-themes
   :straight (:host github :repo "protesilaos/modus-themes"))
 
-;; (use-package ef-themes
-;;   :straight (:host github :repo "protesilaos/ef-themes"))
-
-(use-package auto-dark
-  :straight (:host github :repo "LionyxML/auto-dark-emacs")
-  :hook (server-after-make-frame . auto-dark-mode)
-  :custom
-  (auto-dark-light-theme 'modus-operandi)
-  (auto-dark-dark-theme 'modus-vivendi))
-
 (use-package font
   :hook (after-init . setup-fonts)
   :preface
@@ -373,6 +363,9 @@
                '((rust-mode rust-ts-mode) . ("rust-analyzer")))
   (add-to-list 'eglot-server-programs
                '((markdown-mode) . ("marksman"))))
+
+(use-package dape
+  :straight (:host github :repo "svaante/dape"))
 
 (use-package breadcrumb
   :straight (:host github :repo "joaotavora/breadcrumb")
