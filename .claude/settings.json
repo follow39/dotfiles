@@ -1,0 +1,16 @@
+{
+  "enabledPlugins": {
+    "rust-analyzer-lsp@claude-plugins-official": true
+  },
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    }
+  },
+  "voice": {
+    "enabled": true,
+    "mode": "tap"
+  },
+  "theme": "dark",
+  "voiceEnabled": true
+}
