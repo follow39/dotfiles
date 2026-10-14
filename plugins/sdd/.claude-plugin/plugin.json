@@ -1,0 +1,5 @@
+{
+  "name": "sdd",
+  "description": "Spec-driven development: specification, design, plan, and step-by-step execution with independent reviews",
+  "dependencies": ["principles", "review"]
+}
