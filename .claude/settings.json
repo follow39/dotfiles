@@ -2,8 +2,7 @@
   "enabledPlugins": {
     "rust-analyzer-lsp@claude-plugins-official": true,
     "clangd-lsp@claude-plugins-official": true,
-    "principles@follow39": true,
-    "review@follow39": true,
+    "core@follow39": true,
     "sdd@follow39": true
   },
   "extraKnownMarketplaces": {

@@ -1,6 +1,6 @@
 ## Writing
 
-Apply the `principles:technical-english` skill to documentation, code
+Apply the `core:technical-english` skill to documentation, code
 comments, and responses.
 
 ## Responses
