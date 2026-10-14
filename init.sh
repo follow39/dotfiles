@@ -11,3 +11,5 @@ esac
 # --no-folding links each file on its own, so programs keep their caches
 # and state out of this repo.
 stow --verbose --no-folding --target="$HOME" .
+
+command -v claude >/dev/null || curl -fsSL https://claude.ai/install.sh | bash
