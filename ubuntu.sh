@@ -7,7 +7,9 @@ sudo apt-get install --yes \
     fonts-iosevka \
     git \
     libenchant-2-dev \
+    libsox-fmt-pulse \
     ripgrep \
+    sox \
     starship \
     stow \
     zoxide
