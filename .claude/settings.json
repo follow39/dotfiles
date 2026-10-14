@@ -1,7 +1,10 @@
 {
   "enabledPlugins": {
     "rust-analyzer-lsp@claude-plugins-official": true,
-    "clangd-lsp@claude-plugins-official": true
+    "clangd-lsp@claude-plugins-official": true,
+    "principles@follow39": true,
+    "review@follow39": true,
+    "sdd@follow39": true
   },
   "extraKnownMarketplaces": {
     "claude-plugins-official": {
@@ -10,15 +13,22 @@
         "repo": "anthropics/claude-plugins-official"
       }
     },
-    "dotfiles": {
+    "follow39": {
       "source": {
-        "source": "directory",
-        "path": "/home/artem/projects/dotfiles"
-      }
+        "source": "github",
+        "repo": "follow39/claude-plugins"
+      },
+      "autoUpdate": true
     }
   },
-  "permissions": {
-    "additionalDirectories": ["~/.claude/plugins/data/sdd-dotfiles"]
+  "pluginConfigs": {
+    "sdd@follow39": {
+      "options": {
+        "specs_dir": "docs/specs",
+        "designs_dir": "docs/designs",
+        "plans_dir": "~/.local/share/sdd/plans"
+      }
+    }
   },
   "modelSettings": {
     "claude-opus-5-5": {

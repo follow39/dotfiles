@@ -1,5 +1,0 @@
-{
-  "name": "review",
-  "description": "General reviewers for focus and technical quality",
-  "dependencies": ["principles"]
-}
