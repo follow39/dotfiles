@@ -30,7 +30,8 @@
       "options": {
         "specs_dir": "docs/specs",
         "designs_dir": "docs/designs",
-        "data_dir": "~/.local/share/sdd"
+        "data_dir": "~/.local/share/sdd",
+        "worktrees_dir": ".worktrees"
       }
     }
   },
