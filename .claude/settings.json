@@ -20,18 +20,18 @@
       "autoUpdate": true
     }
   },
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    }
+  },
   "pluginConfigs": {
     "sdd@follow39": {
       "options": {
         "specs_dir": "docs/specs",
         "designs_dir": "docs/designs",
-        "plans_dir": "~/.local/share/sdd/plans"
+        "data_dir": "~/.local/share/sdd"
       }
-    }
-  },
-  "modelSettings": {
-    "claude-opus-5-5": {
-      "effortLevel": "high"
     }
   },
   "voice": {
