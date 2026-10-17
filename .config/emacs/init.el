@@ -42,10 +42,6 @@
    window-resize-pixelwise window-system)
   (provide 'defaults))
 
-(use-package functions
-  :preface
-  (provide 'functions))
-
 (use-package local-config
   :preface
   (defgroup local-config ()
