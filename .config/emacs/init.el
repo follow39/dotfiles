@@ -27,7 +27,6 @@
   (setq-default
    enable-recursive-minibuffers t
    indent-tabs-mode nil
-   load-prefer-newer t
    truncate-lines t
    bidi-paragraph-direction 'left-to-right
    frame-title-format "Emacs"
@@ -39,7 +38,6 @@
    scroll-preserve-screen-position nil
    ;; scroll-conservatively 101
    tab-width 2
-   indent-tabs-mode nil
    frame-resize-pixelwise window-system
    window-resize-pixelwise window-system)
   (provide 'defaults))
@@ -122,8 +120,8 @@
 
 (use-package subr
   :no-require
-  :init
-  (fset 'yes-or-no-p 'y-or-n-p))
+  :custom
+  (use-short-answers t))
 
 (use-package modus-themes
   :straight (:host github :repo "protesilaos/modus-themes"))
@@ -206,12 +204,9 @@
 (use-package recentf
   :straight (:type built-in)
   :hook (after-init . recentf-mode)
-  :defines (recentf-exclude)
   :custom
   (recentf-max-menu-items 127)
-  (recentf-max-saved-items 127)
-  :custom
-  (recentf-mode t))
+  (recentf-max-saved-items 127))
 
 (use-package char-fold
   :straight (:type built-in)
@@ -241,7 +236,7 @@
   (telega-use-docker t))
 
 
-;;; Completition & Search
+;;; Completion & Search
 
 (use-package isearch
   :straight (:type built-in)
@@ -399,15 +394,6 @@
 (use-package treesit
   :straight (:type built-in))
 
-;; (use-package treesit-auto
-;;   :straight (:host github :repo "renzmann/treesit-auto")
-;;   :demand t
-;;   :custom
-;;   (treesit-auto-install 'prompt)
-;;   :config
-;;   (treesit-auto-add-to-auto-mode-alist 'all)
-;;   (global-treesit-auto-mode))
-
 (use-package go-mode
   :straight (:host github :repo "dominikh/go-mode.el"))
 
@@ -483,9 +469,6 @@
 
 
 ;;; Key bindings
-
-;; (use-package devil
-;; :straight (:host github :repo "susam/devil"))
 
 (use-package bindings
   :bind (;; consult
