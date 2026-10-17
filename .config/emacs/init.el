@@ -350,12 +350,7 @@
                     "--cross-file-rename"
                     "--completion-style=detailed"
                     "--header-insertion=iwyu"
-                    "--header-insertion-decorators=0"
-                    )))
-  (add-to-list 'eglot-server-programs
-               '((rust-mode rust-ts-mode) . ("rust-analyzer")))
-  (add-to-list 'eglot-server-programs
-               '((markdown-mode) . ("marksman"))))
+                    "--header-insertion-decorators=0"))))
 
 (use-package dape
   :ensure t)
@@ -381,31 +376,17 @@
 
 (use-package treesit
   :custom
-  ;; Grammar versions that work with the Emacs 30 tree-sitter modes.
-  ;; Newer grammars can rename nodes that these modes use.
   (treesit-language-source-alist
-   '((c "https://github.com/tree-sitter/tree-sitter-c" "v0.23.6")
-     (cpp "https://github.com/tree-sitter/tree-sitter-cpp" "v0.23.4")
-     (cmake "https://github.com/uyha/tree-sitter-cmake" "v0.5.0")
-     (dockerfile "https://github.com/camdencheek/tree-sitter-dockerfile" "v0.2.0")
-     (rust "https://github.com/tree-sitter/tree-sitter-rust" "v0.23.3")
-     (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "tsx/src")
-     (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src")
-     (yaml "https://github.com/tree-sitter-grammars/tree-sitter-yaml" "v0.7.2"))))
-
-(use-package treesit-auto
-  :ensure t
-  :custom
-  (treesit-auto-install t)
-  (treesit-auto-langs '(c cpp cmake dockerfile rust tsx typescript yaml))
-  :config
-  (treesit-auto-add-to-auto-mode-alist treesit-auto-langs)
-  (global-treesit-auto-mode))
+   '((c "https://github.com/tree-sitter/tree-sitter-c")
+     (cpp "https://github.com/tree-sitter/tree-sitter-cpp")
+     (cmake "https://github.com/uyha/tree-sitter-cmake")
+     (dockerfile "https://github.com/camdencheek/tree-sitter-dockerfile")
+     (rust "https://github.com/tree-sitter/tree-sitter-rust")
+     (tsx "https://github.com/tree-sitter/tree-sitter-typescript" nil "tsx/src")
+     (typescript "https://github.com/tree-sitter/tree-sitter-typescript" nil "typescript/src")
+     (yaml "https://github.com/tree-sitter-grammars/tree-sitter-yaml"))))
 
 ;; The tree-sitter modes add their file mappings only when they load.
-
-(use-package c-ts-mode
-  :demand t)
 
 (use-package cmake-ts-mode
   :demand t)
@@ -420,6 +401,11 @@
   :demand t)
 
 (use-package yaml-ts-mode
+  :demand t)
+
+;; Load after `typescript-ts-mode', which loads `cc-mode'.
+;; `cc-mode' turns off the `c-mode' to `c-ts-mode' remap.
+(use-package c-ts-mode
   :demand t)
 
 (use-package csv-mode
