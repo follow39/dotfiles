@@ -43,6 +43,5 @@
     "type": "command",
     "command": "d=$(python3 -c 'import json,sys;print(json.load(sys.stdin)[\"workspace\"][\"current_dir\"])' 2>/dev/null) && cd \"$d\" 2>/dev/null && c=$(git rev-parse --path-format=absolute --git-common-dir 2>/dev/null) || exit 0; [ \"$c\" = \"$(git rev-parse --path-format=absolute --git-dir)\" ] || w=' (worktree)'; printf '%s  %s%s' \"$(basename \"${c%/.git}\")\" \"$(git branch --show-current)\" \"$w\""
   },
-  "theme": "dark",
-  "voiceEnabled": true
+  "theme": "dark"
 }
