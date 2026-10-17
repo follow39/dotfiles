@@ -1,7 +1,6 @@
 \.git
 LICENSE
 .DS_Store
-README.MD
 init\.sh
 ubuntu\.sh
 temp\.png
