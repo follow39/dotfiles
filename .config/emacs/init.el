@@ -373,27 +373,54 @@
 (use-package yasnippet-snippets
   :ensure t)
 
-(use-package rust-mode
-  :ensure t)
-
 (use-package bazel
-  :ensure t)
-
-(use-package cmake-mode
   :ensure t)
 
 (use-package cmake-project
   :ensure t)
 
-(use-package typescript-mode
-  :ensure t)
+(use-package treesit
+  :custom
+  ;; Grammar versions that work with the Emacs 30 tree-sitter modes.
+  ;; Newer grammars can rename nodes that these modes use.
+  (treesit-language-source-alist
+   '((c "https://github.com/tree-sitter/tree-sitter-c" "v0.23.6")
+     (cpp "https://github.com/tree-sitter/tree-sitter-cpp" "v0.23.4")
+     (cmake "https://github.com/uyha/tree-sitter-cmake" "v0.5.0")
+     (dockerfile "https://github.com/camdencheek/tree-sitter-dockerfile" "v0.2.0")
+     (rust "https://github.com/tree-sitter/tree-sitter-rust" "v0.23.3")
+     (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "tsx/src")
+     (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src")
+     (yaml "https://github.com/tree-sitter-grammars/tree-sitter-yaml" "v0.7.2"))))
 
-(use-package treesit)
+(use-package treesit-auto
+  :ensure t
+  :custom
+  (treesit-auto-install t)
+  (treesit-auto-langs '(c cpp cmake dockerfile rust tsx typescript yaml))
+  :config
+  (treesit-auto-add-to-auto-mode-alist treesit-auto-langs)
+  (global-treesit-auto-mode))
 
-(use-package json)
+;; The tree-sitter modes add their file mappings only when they load.
 
-(use-package yaml-mode
-  :ensure t)
+(use-package c-ts-mode
+  :demand t)
+
+(use-package cmake-ts-mode
+  :demand t)
+
+(use-package dockerfile-ts-mode
+  :demand t)
+
+(use-package rust-ts-mode
+  :demand t)
+
+(use-package typescript-ts-mode
+  :demand t)
+
+(use-package yaml-ts-mode
+  :demand t)
 
 (use-package csv-mode
   :ensure t
@@ -408,9 +435,6 @@
   :hook (markdown-mode . visual-line-mode))
 
 (use-package protobuf-mode
-  :ensure t)
-
-(use-package dockerfile-mode
   :ensure t)
 
 (use-package docker
