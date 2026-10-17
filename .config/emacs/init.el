@@ -52,16 +52,16 @@
     "Customization group for local settings."
     :prefix "local-config-"
     :group 'emacs)
-  ;; (defcustom local-config-dark-theme 'modus-vivendi-deuteranopia
-  ;;   "Dark theme to use."
-  ;;   :tag "Dark theme"
-  ;;   :type 'symbol
-  ;;   :group 'local-config)
-  ;; (defcustom local-config-light-theme 'modus-operandi-deuteranopia
-  ;;   "Light theme to use."
-  ;;   :tag "Light theme"
-  ;;   :type 'symbol
-  ;;   :group 'local-config)
+  (defcustom local-config-dark-theme 'modus-vivendi-deuteranopia
+    "Dark theme to use."
+    :tag "Dark theme"
+    :type 'symbol
+    :group 'local-config)
+  (defcustom local-config-light-theme 'modus-operandi-deuteranopia
+    "Light theme to use."
+    :tag "Light theme"
+    :type 'symbol
+    :group 'local-config)
   (provide 'local-config))
 
 
@@ -124,7 +124,19 @@
   (use-short-answers t))
 
 (use-package modus-themes
-  :straight (:host github :repo "protesilaos/modus-themes"))
+  :straight (:host github :repo "protesilaos/modus-themes")
+  :config
+  (defun local-config-update-theme ()
+    "Load the light theme from 07:00 to 20:00 and the dark theme at other times."
+    (let* ((hour (decoded-time-hour (decode-time)))
+           (theme (if (<= 7 hour 19)
+                      local-config-light-theme
+                    local-config-dark-theme)))
+      (unless (equal custom-enabled-themes (list theme))
+        (mapc #'disable-theme custom-enabled-themes)
+        (load-theme theme t))))
+  (local-config-update-theme)
+  (run-at-time 600 600 #'local-config-update-theme))
 
 (use-package font
   :hook (after-init . setup-fonts)
