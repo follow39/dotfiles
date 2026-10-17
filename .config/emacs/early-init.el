@@ -14,7 +14,6 @@
  read-process-output-max (* 1024 1024 8) ; 8mb
  inhibit-compacting-font-caches t
  message-log-max 16384
- package-enable-at-startup nil
  load-prefer-newer noninteractive)
 
 
@@ -49,30 +48,6 @@
   (setq inhibit-automatic-native-compilation nil)
   (defvar native-comp-async-report-warnings-errors)
   (setq native-comp-async-report-warnings-errors 'silent))
-
-;;; Straight
-
-(defvar straight-process-buffer)
-(setq-default straight-process-buffer " *straight-process*")
-
-(defvar straight-build-dir)
-(setq straight-build-dir (format "build-%s" emacs-version))
-
-(defvar straight-repository-branch)
-(setq straight-repository-branch "develop")
-
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 6))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
 
 (provide 'early-init)
 ;;; early-init.el ends here

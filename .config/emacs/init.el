@@ -20,7 +20,9 @@
   :config
   (load-file (expand-file-name "early-init.el" user-emacs-directory)))
 
-(use-package straight)
+(use-package package
+  :config
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t))
 
 (use-package defaults
   :preface
@@ -70,7 +72,7 @@
   (load custom-file :noerror))
 
 (use-package gcmh
-  :straight (:host gitlab :repo "koral/gcmh")
+  :ensure t
   :demand nil
   :config
   (gcmh-mode 1))
@@ -120,7 +122,7 @@
   (use-short-answers t))
 
 (use-package modus-themes
-  :straight (:host github :repo "protesilaos/modus-themes")
+  :ensure t
   :config
   (defun local-config-update-theme ()
     "Load the light theme from 07:00 to 20:00 and the dark theme at other times."
@@ -142,7 +144,7 @@
   (provide 'font))
 
 (use-package ligature
-  :straight (:host github :repo "mickeynp/ligature.el")
+  :ensure t
   :config
   ;; Enable all Iosevka ligatures in programming modes
   (ligature-set-ligatures 'prog-mode '("<---" "<--"  "<<-" "<-" "->" "-->" "--->" "<->" "<-->" "<--->" "<---->" "<!--"
@@ -152,7 +154,7 @@
   (global-ligature-mode t))
 
 (use-package mood-line
-  :straight (:host github :repo "jessiehildebrandt/mood-line")
+  :ensure t
   :config
   (mood-line-mode))
 
@@ -193,12 +195,11 @@
   :hook (prog-mode . show-paren-mode))
 
 (use-package which-key
-  :straight (:host github :repo "justbur/emacs-which-key")
   :config
   (which-key-mode))
 
 (use-package ace-window
-  :straight (:host github :repo "abo-abo/ace-window")
+  :ensure t
   :config
   (ace-window-display-mode))
 
@@ -207,23 +208,21 @@
   (eldoc-echo-area-use-multiline-p nil))
 
 (use-package vundo
-  :straight (:host github :repo "casouri/vundo"))
+  :ensure t)
 
 (use-package recentf
-  :straight (:type built-in)
   :hook (after-init . recentf-mode)
   :custom
   (recentf-max-menu-items 127)
   (recentf-max-saved-items 127))
 
 (use-package char-fold
-  :straight (:type built-in)
   :custom
   (char-fold-symmetric t)
   (search-default-mode #'char-fold-to-regexp))
 
 (use-package reverse-im
-  :straight (:host github :repo "a13/reverse-im.el")
+  :ensure t
   :demand t
   :after char-fold
   :custom
@@ -234,25 +233,19 @@
   (reverse-im-mode t))
 
 (use-package jinx
-  :straight (:host github :repo "minad/jinx")
+  :ensure t
   :config
   (global-jinx-mode))
-
-(use-package telega
-  :straight (:host github :repo "zevlg/telega.el")
-  :custom
-  (telega-use-docker t))
 
 
 ;;; Completion & Search
 
 (use-package isearch
-  :straight (:type built-in)
   :custom
   (isearch-lazy-count t))
 
 (use-package vertico
-  :straight (:host github :repo "minad/vertico")
+  :ensure t
   :custom
   (vertico-cycle t)
   (vertico-scroll-margin 2)
@@ -260,18 +253,18 @@
   (vertico-mode))
 
 (use-package marginalia
-  :straight (:host github :repo "minad/marginalia")
+  :ensure t
   :config
   (marginalia-mode))
 
 (use-package orderless
-  :straight (:host github :repo "oantolin/orderless")
+  :ensure t
   :custom
   (completion-styles '(orderless basic))
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
 (use-package corfu
-  :straight (:host github :repo "minad/corfu")
+  :ensure t
   :custom
   (corfu-auto t)
   (corfu-cycle t)
@@ -281,38 +274,36 @@
   (global-corfu-mode))
 
 (use-package corfu-terminal
-  :straight (:host codeberg :repo "akib/emacs-corfu-terminal")
+  :ensure t
   :unless (display-graphic-p)
   :after corfu
   :config
   (corfu-terminal-mode 1))
 
 (use-package cape
-  :straight (:host github :repo "minad/cape")
+  :ensure t
   :config
   (add-to-list 'completion-at-point-functions #'cape-dabbrev)
   (add-to-list 'completion-at-point-functions #'cape-file))
 
 (use-package consult
-  :straight (:host github :repo "minad/consult")
+  :ensure t
   :custom
   (xref-show-xrefs-function #'consult-xref)
   (xref-show-definitions-function #'consult-xref))
 
 (use-package consult-eglot
-  :straight (:host github :repo "mohkale/consult-eglot")
+  :ensure t
   :after (consult eglot))
 
 
 ;;; Org
 
 (use-package calendar
-  :straight (:type built-in)
   :custom
   (calendar-week-start-day 1))
 
 (use-package org
-  :straight (:type built-in)
   :hook ((org-mode . org-indent-mode)
          (org-mode . visual-line-mode))
   :custom
@@ -321,10 +312,10 @@
   (org-capture-bookmark nil))
 
 (use-package org-modern
-  :straight (:host github :repo "minad/org-modern"))
+  :ensure t)
 
 (use-package denote
-  :straight (:host github :repo "protesilaos/denote")
+  :ensure t
   :custom
   (denote-directory (expand-file-name "~/Documents/notes/"))
   (denote-known-keywords '("emacs" "inbox"))
@@ -339,12 +330,11 @@
   (denote-org-capture-specifiers "%i\n%?"))
 
 (use-package verb
-  :straight (:host github :repo "federicotdn/verb"))
+  :ensure t)
 
 ;;; Development
 
 (use-package eglot
-  :straight (:type built-in)
   :custom
   (eglot-autoshutdown t)
   (eglot-extend-to-xref t)
@@ -368,80 +358,66 @@
                '((markdown-mode) . ("marksman"))))
 
 (use-package dape
-  :straight (:host github :repo "svaante/dape"))
+  :ensure t)
 
 (use-package breadcrumb
-  :straight (:host github :repo "joaotavora/breadcrumb")
+  :ensure t
   :config
   (breadcrumb-mode))
 
 (use-package yasnippet
-  :straight (:host github :repo "joaotavora/yasnippet")
+  :ensure t
   :config
   (yas-global-mode 1))
 
 (use-package yasnippet-snippets
-  :straight (:host github :repo "AndreaCrotti/yasnippet-snippets"))
+  :ensure t)
 
 (use-package rust-mode
-  :straight (:host github :repo "rust-lang/rust-mode"))
+  :ensure t)
 
 (use-package bazel
-  :straight (:host github :repo "bazelbuild/emacs-bazel-mode"))
+  :ensure t)
 
 (use-package cmake-mode
-  :straight (:host github :repo "Kitware/CMake"
-                   :files ("Auxiliary/cmake-mode.el")))
+  :ensure t)
 
 (use-package cmake-project
-  :straight (:host github :repo "alamaison/emacs-cmake-project"))
+  :ensure t)
 
 (use-package typescript-mode
-  :straight (:host github :repo "emacs-typescript/typescript.el"))
+  :ensure t)
 
-(use-package treesit
-  :straight (:type built-in))
+(use-package treesit)
 
-(use-package go-mode
-  :straight (:host github :repo "dominikh/go-mode.el"))
-
-(use-package json
-  :straight (:type built-in))
+(use-package json)
 
 (use-package yaml-mode
-  :straight (:host github :repo "yoshiki/yaml-mode"))
+  :ensure t)
 
 (use-package csv-mode
-  :straight (:host github :repo "emacs-straight/csv-mode")
+  :ensure t
   :custom
   (csv-align-max-width 80))
 
-(use-package lua-mode
-  :straight (:host github :repo "immerrr/lua-mode"))
-
 (use-package zig-mode
-  :straight (:host github :repo "ziglang/zig-mode"))
+  :ensure t)
 
 (use-package markdown-mode
-  :straight (:host github :repo "jrblevin/markdown-mode")
+  :ensure t
   :hook (markdown-mode . visual-line-mode))
 
 (use-package protobuf-mode
-  :straight (:host github :repo "protocolbuffers/protobuf"
-                   :files ("editors/protobuf-mode.el")))
+  :ensure t)
 
 (use-package dockerfile-mode
-  :straight (:host github :repo "spotify/dockerfile-mode"))
+  :ensure t)
 
 (use-package docker
-  :straight (:host github :repo "Silex/docker.el"))
-
-(use-package rmsbolt
-  :straight (:host gitlab :repo "jgkamat/rmsbolt")
-  :defer t)
+  :ensure t)
 
 (use-package hl-todo
-  :straight (:host github :repo "tarsius/hl-todo")
+  :ensure t
   :custom
   (hl-todo-keyword-faces
    '(("TODO"   . "#FF0000")
@@ -452,23 +428,16 @@
   :config
   (global-hl-todo-mode))
 
-(use-package leetcode
-  :straight (:host github :repo "kaiwk/leetcode.el")
-  :defer t
-  :custom
-  (leetcode-prefer-language "cpp")
-  (leetcode-save-solutions t))
-
 
 ;;; Git
 
 (use-package magit
-  :straight (:host github :repo "magit/magit")
+  :ensure t
   :config
   (setq magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
 (use-package diff-hl
-  :straight (:host github :repo "dgutov/diff-hl")
+  :ensure t
   :requires (magit)
   :config
   (add-hook 'magit-pre-refresh-hook 'diff-hl-magit-pre-refresh)
