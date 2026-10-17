@@ -9,23 +9,22 @@
 
 ;;; Code:
 
-(setq
- gc-cons-threshold most-positive-fixnum
- read-process-output-max (* 1024 1024 8) ; 8mb
- inhibit-compacting-font-caches t
- message-log-max 16384
- load-prefer-newer noninteractive)
-
+;; `gcmh' manages garbage collection after startup.
+(setq gc-cons-threshold most-positive-fixnum)
 
 (setq-default
  default-frame-alist '((fullscreen . maximized)
-                       (tool-bar-lines . 0)
                        (bottom-divider-width . 0)
                        (right-divider-width . 1))
- initial-frame-alist default-frame-alist
- frame-inhibit-implied-resize t
- x-gtk-resize-child-frames 'resize-mode
- fringe-indicator-alist (assq-delete-all 'truncation fringe-indicator-alist))
+ frame-inhibit-implied-resize t)
+
+(menu-bar-mode -1)
+
+(when (fboundp #'tool-bar-mode)
+  (tool-bar-mode -1))
+
+(when (fboundp #'scroll-bar-mode)
+  (scroll-bar-mode -1))
 
 (unless (or (daemonp) noninteractive)
   (let ((restore-file-name-handler-alist file-name-handler-alist))
@@ -34,22 +33,7 @@
       (setq file-name-handler-alist
             (delete-dups (append file-name-handler-alist
                                  restore-file-name-handler-alist)))))
-
-  (add-hook 'emacs-startup-hook #'restore-file-handler-alist 101)
-
-  (when (fboundp #'tool-bar-mode)
-    (tool-bar-mode -1))
-
-  (when (fboundp #'scroll-bar-mode)
-    (scroll-bar-mode -1)))
-
-(when (featurep 'native-compile)
-  (defvar inhibit-automatic-native-compilation)
-  (setq inhibit-automatic-native-compilation nil)
-  (defvar native-comp-async-report-warnings-errors)
-  (setq native-comp-async-report-warnings-errors 'silent))
+  (add-hook 'emacs-startup-hook #'restore-file-handler-alist 101))
 
 (provide 'early-init)
 ;;; early-init.el ends here
-
-

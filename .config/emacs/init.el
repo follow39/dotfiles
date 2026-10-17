@@ -14,12 +14,6 @@
   :custom
   (use-package-enable-imenu-support t))
 
-(use-package early-init
-  :no-require
-  :unless (featurep 'early-init)
-  :config
-  (load-file (expand-file-name "early-init.el" user-emacs-directory)))
-
 (use-package package
   :config
   (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t))
@@ -41,7 +35,13 @@
    ;; scroll-conservatively 101
    tab-width 2
    frame-resize-pixelwise window-system
-   window-resize-pixelwise window-system)
+   window-resize-pixelwise window-system
+   read-process-output-max (* 1024 1024 8)
+   inhibit-compacting-font-caches t
+   message-log-max 16384
+   x-gtk-resize-child-frames 'resize-mode
+   fringe-indicator-alist (assq-delete-all 'truncation fringe-indicator-alist)
+   native-comp-async-report-warnings-errors 'silent)
   (provide 'defaults))
 
 (use-package local-config
@@ -163,21 +163,6 @@
   (history-length 50)
   :config
   (savehist-mode))
-
-(use-package menu-bar
-  :unless (display-graphic-p)
-  :config
-  (menu-bar-mode -1))
-
-(use-package scroll-bar
-  :unless (display-graphic-p)
-  :config
-  (scroll-bar-mode -1))
-
-(use-package tool-bar
-  :unless (display-graphic-p)
-  :config
-  (tool-bar-mode -1))
 
 (use-package delsel
   :config
