@@ -206,17 +206,6 @@
   (char-fold-symmetric t)
   (search-default-mode #'char-fold-to-regexp))
 
-(use-package reverse-im
-  :ensure t
-  :demand t
-  :after char-fold
-  :custom
-  (reverse-im-char-fold t)
-  (reverse-im-read-char-advice-function #'reverse-im-read-char-include)
-  (reverse-im-input-methods '("russian-computer"))
-  :config
-  (reverse-im-mode t))
-
 (use-package jinx
   :ensure t
   :config
@@ -344,14 +333,6 @@
   :ensure t
   :config
   (breadcrumb-mode))
-
-(use-package yasnippet
-  :ensure t
-  :config
-  (yas-global-mode 1))
-
-(use-package yasnippet-snippets
-  :ensure t)
 
 (use-package bazel
   :ensure t)
@@ -517,18 +498,10 @@
                ("C-c e f" . eglot-format-buffer)
                ("C-c e a" . eglot-code-actions)
                ("C-c e q" . eglot-shutdown))
-         ;; yasnippet
-         (:map prog-mode-map
-               ("C-c y n" . yas-next-field)
-               ("C-c y p" . yas-prev-field)
-               ("C-c y i" . yas-insert-snippet))
          ;; dired
          (:map dired-mode-map
                ("<backspace>" . dired-up-directory)
-               ("~" . dired-home-directory))
-         ;; reverse-im
-         (:map global-map
-               ("M-T" . reverse-im-translate-word)))
+               ("~" . dired-home-directory)))
   :config
   (provide 'bindings))
 
