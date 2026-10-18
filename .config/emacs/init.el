@@ -210,11 +210,6 @@
                               (let ((inhibit-message t))
                                 (recentf-save-list)))))
 
-(use-package char-fold
-  :custom
-  (char-fold-symmetric t)
-  (search-default-mode #'char-fold-to-regexp))
-
 (use-package jinx
   :ensure t
   :config
