@@ -15,3 +15,5 @@ sudo apt-get install --yes \
     stow \
     zoxide \
     zsh
+
+sudo chsh -s /usr/bin/zsh "$USER"
