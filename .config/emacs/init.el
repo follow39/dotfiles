@@ -290,10 +290,12 @@
   (org-capture-bookmark nil))
 
 (use-package org-modern
-  :ensure t)
+  :ensure t
+  :defer t)
 
 (use-package denote
   :ensure t
+  :defer t
   :custom
   (denote-directory (expand-file-name "~/Documents/notes/"))
   (denote-known-keywords '("emacs" "inbox"))
@@ -331,7 +333,8 @@
                     "--header-insertion-decorators=0"))))
 
 (use-package dape
-  :ensure t)
+  :ensure t
+  :defer t)
 
 (use-package breadcrumb
   :ensure t
@@ -339,7 +342,8 @@
   (breadcrumb-mode))
 
 (use-package bazel
-  :ensure t)
+  :ensure t
+  :defer t)
 
 (use-package cmake-project
   :ensure t)
@@ -394,7 +398,8 @@
   :ensure t)
 
 (use-package docker
-  :ensure t)
+  :ensure t
+  :defer t)
 
 (use-package hl-todo
   :ensure t
