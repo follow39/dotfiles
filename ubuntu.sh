@@ -5,6 +5,7 @@ sudo apt-get install --yes \
     emacs \
     fish \
     fonts-iosevka \
+    fzf \
     git \
     libenchant-2-dev \
     libsox-fmt-pulse \
@@ -12,4 +13,5 @@ sudo apt-get install --yes \
     sox \
     starship \
     stow \
-    zoxide
+    zoxide \
+    zsh
