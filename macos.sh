@@ -7,6 +7,9 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 brew tap d12frosted/emacs-plus
 brew trust d12frosted/emacs-plus
 
+# Stow has not linked ~/.config/emacs-plus/build.yml yet on a new machine.
+export HOMEBREW_EMACS_PLUS_BUILD_CONFIG="$PWD/.config/emacs-plus/build.yml"
+
 brew install \
     emacs-plus@31 \
     enchant \
