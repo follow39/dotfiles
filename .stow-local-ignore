@@ -2,5 +2,6 @@
 LICENSE
 .DS_Store
 init\.sh
+macos\.sh
 ubuntu\.sh
 temp\.png

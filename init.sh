@@ -3,10 +3,13 @@ set -euo pipefail
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
-. /etc/os-release
-case "$ID" in
-    ubuntu) ./ubuntu.sh ;;
-esac
+if [ "$(uname -s)" = Darwin ]; then
+    ./macos.sh
+fi
+
+if [ -f /etc/os-release ] && . /etc/os-release && [ "$ID" = ubuntu ]; then
+    ./ubuntu.sh
+fi
 
 # --no-folding links each file on its own, so programs keep their caches
 # and state out of this repo.
