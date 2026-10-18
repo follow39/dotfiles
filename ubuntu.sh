@@ -7,6 +7,7 @@ sudo apt-get install --yes \
     fonts-iosevka \
     fzf \
     git \
+    jq \
     libenchant-2-dev \
     libsox-fmt-pulse \
     ripgrep \
