@@ -309,9 +309,6 @@
   (denote-date-prompt-use-org-read-date t)
   (denote-org-capture-specifiers "%i\n%?"))
 
-(use-package verb
-  :ensure t)
-
 ;;; Development
 
 (use-package eglot
