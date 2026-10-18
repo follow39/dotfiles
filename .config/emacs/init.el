@@ -160,7 +160,7 @@
 
 (use-package savehist
   :custom
-  (history-length 50)
+  (savehist-autosave-interval 30)
   :config
   (savehist-mode))
 
@@ -170,7 +170,11 @@
 
 (use-package saveplace
   :config
-  (save-place-mode))
+  (save-place-mode)
+  ;; Save also when Emacs stops without running `kill-emacs-hook'.
+  (run-with-idle-timer 30 t (lambda ()
+                              (let ((inhibit-message t))
+                                (save-place-kill-emacs-hook)))))
 
 (use-package hl-line
   :config
@@ -199,7 +203,12 @@
   :hook (after-init . recentf-mode)
   :custom
   (recentf-max-menu-items 127)
-  (recentf-max-saved-items 127))
+  (recentf-max-saved-items 127)
+  :config
+  ;; Save also when Emacs stops without running `kill-emacs-hook'.
+  (run-with-idle-timer 30 t (lambda ()
+                              (let ((inhibit-message t))
+                                (recentf-save-list)))))
 
 (use-package char-fold
   :custom
