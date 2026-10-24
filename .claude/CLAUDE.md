@@ -3,6 +3,11 @@
 Apply the `core:technical-english` skill to documentation, code
 comments, and responses.
 
+## Principles
+
+Apply each `core:*-principles` skill whenever its description matches the
+work.
+
 ## Responses
 
 Keep responses focused and brief. Lead with the answer, then add only the
