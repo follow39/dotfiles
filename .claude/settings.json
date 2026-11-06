@@ -49,5 +49,7 @@
   },
   "theme": "dark",
   "autoMemoryEnabled": false,
-  "voiceEnabled": true
+  "voiceEnabled": true,
+  "agentPushNotifEnabled": true,
+  "inputNeededNotifEnabled": true
 }
